@@ -493,7 +493,9 @@ CMakeFiles/Project.dir/src/Initializer.o: /usr/local/include/tbb/tbb_thread.h
 CMakeFiles/Project.dir/src/Initializer.o: /usr/local/include/tbb/tick_count.h
 
 CMakeFiles/Project.dir/src/ORBVO.o: include/Frame.h
+CMakeFiles/Project.dir/src/ORBVO.o: include/Initializer.h
 CMakeFiles/Project.dir/src/ORBVO.o: include/ORBextractor.h
+CMakeFiles/Project.dir/src/ORBVO.o: include/ORBmatcher.h
 CMakeFiles/Project.dir/src/ORBVO.o: src/ORBVO.cpp
 CMakeFiles/Project.dir/src/ORBVO.o: /usr/local/include/boost/assert.hpp
 CMakeFiles/Project.dir/src/ORBVO.o: /usr/local/include/boost/config.hpp
