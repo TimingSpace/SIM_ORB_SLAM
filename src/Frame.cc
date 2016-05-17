@@ -19,7 +19,7 @@
 */
 
 #include "../include/Frame.h"
-
+//#include <iostream>
 
 namespace ORB_SLAM
 {
@@ -58,6 +58,7 @@ Frame::Frame(cv::Mat &im_, const double &timeStamp, ORBextractor* extractor,cv::
     (*mpORBextractor)(im,cv::Mat(),mvKeys,mDescriptors);
 
     N = mvKeys.size();
+    //std::cout<<N<<std::endl;
 
     if(mvKeys.empty())
         return;
@@ -109,7 +110,14 @@ Frame::Frame(cv::Mat &im_, const double &timeStamp, ORBextractor* extractor,cv::
         for (unsigned int j=0; j<FRAME_GRID_ROWS;j++)
             mGrid[i][j].reserve(nReserve);
 
+    for(size_t i=0;i<mvKeysUn.size();i++)
+    {
+        cv::KeyPoint &kp = mvKeysUn[i];
 
+        int nGridPosX, nGridPosY;
+        if(PosInGrid(kp,nGridPosX,nGridPosY))
+            mGrid[nGridPosX][nGridPosY].push_back(i);
+    }
     
 
 
@@ -124,7 +132,17 @@ void Frame::UpdatePoseMatrices()
     mOw = -mRcw.t()*mtcw;
 }
 
+bool Frame::PosInGrid(cv::KeyPoint &kp, int &posX, int &posY)
+{
+    posX = round((kp.pt.x-mnMinX)*mfGridElementWidthInv);
+    posY = round((kp.pt.y-mnMinY)*mfGridElementHeightInv);
 
+    //Keypoint's coordinates are undistorted, which could cause to go out of the image
+    if(posX<0 || posX>=FRAME_GRID_COLS || posY<0 || posY>=FRAME_GRID_ROWS)
+        return false;
+
+    return true;
+}
 vector<size_t> Frame::GetFeaturesInArea(const float &x, const float  &y, const float  &r, int minLevel, int maxLevel) const
 {
     vector<size_t> vIndices;

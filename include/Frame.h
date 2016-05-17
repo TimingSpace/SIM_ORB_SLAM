@@ -86,7 +86,9 @@ public:
     void UpdatePoseMatrices();
 
 
-
+    // Compute the cell of a keypoint (return false if outside the grid)
+    bool PosInGrid(cv::KeyPoint &kp, int &posX, int &posY);
+    
     vector<size_t> GetFeaturesInArea(const float &x, const float  &y, const float  &r, const int minLevel=-1, const int maxLevel=-1) const;
 
     // Scale Pyramid Info

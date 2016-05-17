@@ -101,14 +101,14 @@ bool Initializer::Initialize(const Frame &CurrentFrame, const vector<int> &vMatc
 
     // Compute ratio of scores
     float RH = SH/(SH+SF);
-
+    return ReconstructF(vbMatchesInliersF,F,mK,R21,t21,vP3D,vbTriangulated,1.0,50);// minParallax 1 minGoodPoint 50
     // Try to reconstruct from homography or fundamental depending on the ratio (0.40-0.45)
-    if(RH>0.40)
-        return ReconstructH(vbMatchesInliersH,H,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
-    else //if(pF_HF>0.6)
-        return ReconstructF(vbMatchesInliersF,F,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
+    // if(RH>0.40)
+    //     return ReconstructH(vbMatchesInliersH,H,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
+    // else //if(pF_HF>0.6)
+    //     return ReconstructF(vbMatchesInliersF,F,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
 
-    return false;
+    // return false;
 }
 
 
@@ -488,12 +488,12 @@ bool Initializer::ReconstructF(vector<bool> &vbMatchesInliers, cv::Mat &F21, cv:
     int nGood4 = CheckRT(R2,t2,mvKeys1,mvKeys2,mvMatches12,vbMatchesInliers,K, vP3D4, 4.0*mSigma2, vbTriangulated4, parallax4);
 
     int maxGood = max(nGood1,max(nGood2,max(nGood3,nGood4)));
-
+    std::cout<<"maxGood   "<<maxGood<<std::endl;//debug
     R21 = cv::Mat();
     t21 = cv::Mat();
 
     int nMinGood = max(static_cast<int>(0.9*N),minTriangulated);
-
+    std::cout<<"minGood   "<<nMinGood<<std::endl;//debug
     int nsimilar = 0;
     if(nGood1>0.7*maxGood)
         nsimilar++;
@@ -503,16 +503,20 @@ bool Initializer::ReconstructF(vector<bool> &vbMatchesInliers, cv::Mat &F21, cv:
         nsimilar++;
     if(nGood4>0.7*maxGood)
         nsimilar++;
-
+    std::cout<<"nsimilar   "<<nsimilar<<std::endl;//debug
     // If there is not a clear winner or not enough triangulated points reject initialization
     if(maxGood<nMinGood || nsimilar>1)
     {
         return false;
     }
-
+    std::cout<<"parallax1   "<<parallax1<<std::endl;//debug
+    std::cout<<"parallax2   "<<parallax2<<std::endl;//debug
+    std::cout<<"parallax3   "<<parallax3<<std::endl;//debug
+    std::cout<<"parallax4   "<<parallax4<<std::endl;//debug
     // If best reconstruction has enough parallax initialize
     if(maxGood==nGood1)
     {
+        std::cout<<"parallax1   "<<parallax1<<std::endl;//debug
         if(parallax1>minParallax)
         {
             vP3D = vP3D1;
@@ -524,6 +528,7 @@ bool Initializer::ReconstructF(vector<bool> &vbMatchesInliers, cv::Mat &F21, cv:
         }
     }else if(maxGood==nGood2)
     {
+        std::cout<<"parallax2   "<<parallax2<<std::endl;//debug
         if(parallax2>minParallax)
         {
             vP3D = vP3D2;
@@ -535,6 +540,7 @@ bool Initializer::ReconstructF(vector<bool> &vbMatchesInliers, cv::Mat &F21, cv:
         }
     }else if(maxGood==nGood3)
     {
+        std::cout<<"parallax3   "<<parallax3<<std::endl;//debug
         if(parallax3>minParallax)
         {
             vP3D = vP3D3;
@@ -546,6 +552,7 @@ bool Initializer::ReconstructF(vector<bool> &vbMatchesInliers, cv::Mat &F21, cv:
         }
     }else if(maxGood==nGood4)
     {
+        std::cout<<"parallax4   "<<parallax4<<std::endl;//debug
         if(parallax4>minParallax)
         {
             vP3D = vP3D4;

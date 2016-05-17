@@ -20,7 +20,7 @@
 */
 
 #include "../include/ORBmatcher.h"
-
+// #include <iostream>
 #include<limits.h>
 
 #include<opencv2/core/core.hpp>
@@ -71,13 +71,16 @@ int ORBmatcher::SearchForInitialization(Frame &F1, Frame &F2, vector<cv::Point2f
 
     for(size_t i1=0, iend1=F1.mvKeysUn.size(); i1<iend1; i1++)
     {
+        //std::cout<<i1<<std::endl;//debug
+
         cv::KeyPoint kp1 = F1.mvKeysUn[i1];
         int level1 = kp1.octave;
+        //std::cout<<"level1"<<level1<<std::endl;//debug
         if(level1>0)
             continue;
 
         vector<size_t> vIndices2 = F2.GetFeaturesInArea(vbPrevMatched[i1].x,vbPrevMatched[i1].y, windowSize,level1,level1);
-
+        //std::cout<<vIndices2.size()<<std::endl;//debug
         if(vIndices2.empty())
             continue;
 
