@@ -1,17 +1,19 @@
 #include <opencv2/opencv.hpp>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "../include/Frame.h"
 #include "../include/ORBmatcher.h"
 #include "../include/Initializer.h"
 using namespace cv;
 using namespace ORB_SLAM;
 using namespace std;
-int main()
+void LoadImages(const string &strPathToSequence, vector<string> &vstrImageFilenames, vector<double> &vTimestamps);
+int main(int argn, char** argv)
 {
 	// initial path and parameter
-	Mat img1=imread("../image_2/000100.png",0);
-	Mat img2=imread("../image_2/000103.png",0);
+	Mat img1=imread("../00/image_0/000000.png",0);
+	Mat img2=imread("../00/image_0/000002.png",0);
 	ORBextractor *mORBextractor = new ORBextractor();
 	Mat K = cv::Mat::eye(3,3,CV_32F);
     K.at<float>(0,0) = 718.1856;
@@ -25,44 +27,129 @@ int main()
     DistCoef.at<float>(2) = 0;
     DistCoef.at<float>(3) = 0;
 
-    // initial frame
-	Frame mReferenceFrame=Frame(img1,0,mORBextractor,K,DistCoef);
-	Frame mCurrentFrame=Frame(img2,1,mORBextractor,K,DistCoef);
-	// test orb extraction
-	// cout<<mReferenceFrame.mvKeys.size()<<endl;
-	Mat img1Draw(img1.size(),img1.type()),img2Draw(img2.size(),img2.type());
-	drawKeypoints(img1,mReferenceFrame.mvKeys,img1Draw,Scalar(255,0,0));
-	drawKeypoints(img2,mCurrentFrame.mvKeys,img2Draw,Scalar(255,0,0));
+    //loading frame
+    vector<string> vstrImageFilenames;
+    vector<double> vTimestamps;
+    cout << endl << "start loading images" << endl;
+    LoadImages(string(argv[1]), vstrImageFilenames, vTimestamps);
+    cout << endl << "images loaded" << endl;
 
-	Initializer mInitializer=Initializer(mReferenceFrame);
-	
-	// orb matching
-	ORBmatcher matcher(0.9,true);
-	
-	vector<int> mIniMatches;
+    //tracking state
+    enum eTrackingState{
+        SYSTEM_NOT_READY=-1,
+        NO_IMAGES_YET=0,
+        NOT_INITIALIZED=1,
+        INITIALIZING=2,
+        WORKING=3,
+        LOST=4
+    };
+    eTrackingState mTrackingState=NOT_INITIALIZED;
+
+    //tracking
+    Frame mReferenceFrame,mInitialFrame,mLastFrame;
+    Frame mCurrentFrame;
+    Initializer *mInitializer;
+    vector<int> mIniMatches;
 
 	mIniMatches.resize(mReferenceFrame.mvKeys.size());
 
 	vector<cv::Point2f> mPrevMatched;
-	mPrevMatched.resize(mReferenceFrame.mvKeys.size());
-	for(size_t i=0; i<mReferenceFrame.mvKeys.size(); i++)
-            mPrevMatched[i]=mReferenceFrame.mvKeysUn[i].pt;
-   	
-   	// cout<<mPrevMatched[0].x<<" "<<mPrevMatched[0].y<<"  "<<mReferenceFrame.mvKeysUn[0].octave<<endl;
-   	vector<size_t> vIndices2 = mCurrentFrame.GetFeaturesInArea(mPrevMatched[0].x,mPrevMatched[0].y, 100,0,7);
-   	// for(int i=0;i<48;i++)
-   	// 	cout<<mCurrentFrame.mGrid[i][i].size()<<endl; //error comes from here
-    int nmatches = matcher.SearchForInitialization(mReferenceFrame,mCurrentFrame,mPrevMatched,mIniMatches,100);
-    cout<<nmatches<<endl;
-    Mat R21;
-    Mat t21; 
-    vector<cv::Point3f> vP3D;
-    vector<bool> vbTriangulated;
+	std::vector<cv::Point3f> mIniP3D;
+    for(int i=0;i<vstrImageFilenames.size();i++)
+    {
+    	Mat img=imread(vstrImageFilenames[i],0);
+    	imshow("img",img);
+    	mCurrentFrame=Frame(img,0,mORBextractor,K,DistCoef);
+    	if(mTrackingState==NOT_INITIALIZED)
+    	{
+    		if(mCurrentFrame.mvKeys.size()>100)
+		    {
+		        mInitialFrame = Frame(mCurrentFrame);
+		        mLastFrame = Frame(mCurrentFrame);
+		        mPrevMatched.resize(mCurrentFrame.mvKeysUn.size());
+		        for(size_t i=0; i<mCurrentFrame.mvKeysUn.size(); i++)
+		            mPrevMatched[i]=mCurrentFrame.mvKeysUn[i].pt;
 
-    bool success=mInitializer.Initialize(mCurrentFrame,mIniMatches,R21,t21,vP3D,vbTriangulated);
-    cout<<"initial success "<<success<<endl;
-	imshow("img1",img1Draw);
-	imshow("img2",img2Draw);
-	waitKey();
+		        if(mInitializer)
+		            delete mInitializer;
+
+		        mInitializer =  new Initializer(mCurrentFrame,1.0,200);
+
+		        mTrackingState = INITIALIZING;
+		    }
+		    continue;
+    	}
+    	else if(mTrackingState==INITIALIZING)
+    	{
+    		if(mCurrentFrame.mvKeys.size()<=100)
+		    {
+		        fill(mIniMatches.begin(),mIniMatches.end(),-1);
+		        mTrackingState = NOT_INITIALIZED;
+		        continue;
+		    }    
+
+		    // Find correspondences
+		    ORBmatcher matcher(0.9,true);
+		    int nmatches = matcher.SearchForInitialization(mInitialFrame,mCurrentFrame,mPrevMatched,mIniMatches,100);
+
+		    // Check if there are enough correspondences
+		    if(nmatches<100)
+		    {
+		        mTrackingState = NOT_INITIALIZED;
+		        continue;
+		    }  
+
+		    cv::Mat Rcw; // Current Camera Rotation
+		    cv::Mat tcw; // Current Camera Translation
+		    vector<bool> vbTriangulated; // Triangulated Correspondences (mvIniMatches)
+
+		    if(mInitializer->Initialize(mCurrentFrame, mIniMatches, Rcw, tcw, mIniP3D, vbTriangulated))
+		    {
+		        for(size_t i=0, iend=mIniMatches.size(); i<iend;i++)
+		        {
+		            if(mIniMatches[i]>=0 && !vbTriangulated[i])
+		            {
+		                mIniMatches[i]=-1;
+		                nmatches--;
+		            }           
+		        }
+		        cout<<"Initialized successfully"<<endl;
+		        mTrackingState = WORKING;
+		        //CreateInitialMap(Rcw,tcw);
+		    }
+    	}
+    	waitKey();
+    }	
 	return 0;
+}
+void LoadImages(const string &strPathToSequence, vector<string> &vstrImageFilenames, vector<double> &vTimestamps)
+{
+    ifstream fTimes;
+    string strPathTimeFile = strPathToSequence + "/times.txt";
+    fTimes.open(strPathTimeFile.c_str());
+    while(!fTimes.eof())
+    {
+        string s;
+        getline(fTimes,s);
+        if(!s.empty())
+        {
+            stringstream ss;
+            ss << s;
+            double t;
+            ss >> t;
+            vTimestamps.push_back(t);
+        }
+    }
+
+    string strPrefixLeft = strPathToSequence + "/image_0/";
+
+    const int nTimes = vTimestamps.size();
+    vstrImageFilenames.resize(nTimes);
+
+    for(int i=0; i<nTimes; i++)
+    {
+        stringstream ss;
+        ss << setfill('0') << setw(6) << i;
+        vstrImageFilenames[i] = strPrefixLeft + ss.str() + ".png";
+    }
 }
