@@ -145,6 +145,51 @@ src/Initializer.s:
 .PHONY : src/Initializer.s
 
 # target to build an object file
+src/KeyFrame.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/KeyFrame.o
+.PHONY : src/KeyFrame.o
+
+# target to preprocess a source file
+src/KeyFrame.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/KeyFrame.i
+.PHONY : src/KeyFrame.i
+
+# target to generate assembly for a file
+src/KeyFrame.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/KeyFrame.s
+.PHONY : src/KeyFrame.s
+
+# target to build an object file
+src/Map.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/Map.o
+.PHONY : src/Map.o
+
+# target to preprocess a source file
+src/Map.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/Map.i
+.PHONY : src/Map.i
+
+# target to generate assembly for a file
+src/Map.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/Map.s
+.PHONY : src/Map.s
+
+# target to build an object file
+src/MapPoint.o:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/MapPoint.o
+.PHONY : src/MapPoint.o
+
+# target to preprocess a source file
+src/MapPoint.i:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/MapPoint.i
+.PHONY : src/MapPoint.i
+
+# target to generate assembly for a file
+src/MapPoint.s:
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/MapPoint.s
+.PHONY : src/MapPoint.s
+
+# target to build an object file
 src/ORBVO.o:
 	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/ORBVO.o
 .PHONY : src/ORBVO.o
@@ -204,6 +249,15 @@ help:
 	@echo "... src/Initializer.o"
 	@echo "... src/Initializer.i"
 	@echo "... src/Initializer.s"
+	@echo "... src/KeyFrame.o"
+	@echo "... src/KeyFrame.i"
+	@echo "... src/KeyFrame.s"
+	@echo "... src/Map.o"
+	@echo "... src/Map.i"
+	@echo "... src/Map.s"
+	@echo "... src/MapPoint.o"
+	@echo "... src/MapPoint.i"
+	@echo "... src/MapPoint.s"
 	@echo "... src/ORBVO.o"
 	@echo "... src/ORBVO.i"
 	@echo "... src/ORBVO.s"

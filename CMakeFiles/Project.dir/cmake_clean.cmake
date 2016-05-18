@@ -4,6 +4,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/Project.dir/src/ORBmatcher.o"
   "CMakeFiles/Project.dir/src/Frame.o"
   "CMakeFiles/Project.dir/src/Initializer.o"
+  "CMakeFiles/Project.dir/src/Map.o"
+  "CMakeFiles/Project.dir/src/MapPoint.o"
+  "CMakeFiles/Project.dir/src/KeyFrame.o"
   "bin/Project.pdb"
   "bin/Project"
 )

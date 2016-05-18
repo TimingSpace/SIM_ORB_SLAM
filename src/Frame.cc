@@ -37,7 +37,7 @@ Frame::Frame(const Frame &frame)
     :mpORBextractor(frame.mpORBextractor), im(frame.im.clone()), mTimeStamp(frame.mTimeStamp),
      mK(frame.mK.clone()), mDistCoef(frame.mDistCoef.clone()), N(frame.N), mvKeys(frame.mvKeys), mvKeysUn(frame.mvKeysUn),
      mDescriptors(frame.mDescriptors.clone()),
-     mvbOutlier(frame.mvbOutlier),
+     mvpMapPoints(frame.mvpMapPoints), mvbOutlier(frame.mvbOutlier),
      mnId(frame.mnId),
      mnScaleLevels(frame.mnScaleLevels), mfScaleFactor(frame.mfScaleFactor),
      mvScaleFactors(frame.mvScaleFactors), mvLevelSigma2(frame.mvLevelSigma2), mvInvLevelSigma2(frame.mvInvLevelSigma2)
@@ -131,18 +131,69 @@ void Frame::UpdatePoseMatrices()
     mtcw = mTcw.rowRange(0,3).col(3);
     mOw = -mRcw.t()*mtcw;
 }
-
-bool Frame::PosInGrid(cv::KeyPoint &kp, int &posX, int &posY)
+bool Frame::isInFrustum(MapPoint *pMP, float viewingCosLimit)
 {
-    posX = round((kp.pt.x-mnMinX)*mfGridElementWidthInv);
-    posY = round((kp.pt.y-mnMinY)*mfGridElementHeightInv);
+    pMP->mbTrackInView = false;
 
-    //Keypoint's coordinates are undistorted, which could cause to go out of the image
-    if(posX<0 || posX>=FRAME_GRID_COLS || posY<0 || posY>=FRAME_GRID_ROWS)
+    // 3D in absolute coordinates
+    cv::Mat P = pMP->GetWorldPos(); 
+
+    // 3D in camera coordinates
+    const cv::Mat Pc = mRcw*P+mtcw;
+    const float PcX = Pc.at<float>(0);
+    const float PcY= Pc.at<float>(1);
+    const float PcZ = Pc.at<float>(2);
+
+    // Check positive depth
+    if(PcZ<0.0)
         return false;
+
+    // Project in image and check it is not outside
+    const float invz = 1.0/PcZ;
+    const float u=fx*PcX*invz+cx;
+    const float v=fy*PcY*invz+cy;
+
+    if(u<mnMinX || u>mnMaxX)
+        return false;
+    if(v<mnMinY || v>mnMaxY)
+        return false;
+
+    // Check distance is in the scale invariance region of the MapPoint
+    const float maxDistance = pMP->GetMaxDistanceInvariance();
+    const float minDistance = pMP->GetMinDistanceInvariance();
+    const cv::Mat PO = P-mOw;
+    const float dist = cv::norm(PO);
+
+    if(dist<minDistance || dist>maxDistance)
+        return false;
+
+   // Check viewing angle
+    cv::Mat Pn = pMP->GetNormal();
+
+    float viewCos = PO.dot(Pn)/dist;
+
+    if(viewCos<viewingCosLimit)
+        return false;
+
+    // Predict scale level acording to the distance
+    float ratio = dist/minDistance;
+
+    vector<float>::iterator it = lower_bound(mvScaleFactors.begin(), mvScaleFactors.end(), ratio);
+    int nPredictedLevel = it-mvScaleFactors.begin();
+
+    if(nPredictedLevel>=mnScaleLevels)
+        nPredictedLevel=mnScaleLevels-1;
+
+    // Data used by the tracking
+    pMP->mbTrackInView = true;
+    pMP->mTrackProjX = u;
+    pMP->mTrackProjY = v;
+    pMP->mnTrackScaleLevel= nPredictedLevel;
+    pMP->mTrackViewCos = viewCos;
 
     return true;
 }
+
 vector<size_t> Frame::GetFeaturesInArea(const float &x, const float  &y, const float  &r, int minLevel, int maxLevel) const
 {
     vector<size_t> vIndices;
@@ -210,7 +261,17 @@ vector<size_t> Frame::GetFeaturesInArea(const float &x, const float  &y, const f
 
 }
 
+bool Frame::PosInGrid(cv::KeyPoint &kp, int &posX, int &posY)
+{
+    posX = round((kp.pt.x-mnMinX)*mfGridElementWidthInv);
+    posY = round((kp.pt.y-mnMinY)*mfGridElementHeightInv);
 
+    //Keypoint's coordinates are undistorted, which could cause to go out of the image
+    if(posX<0 || posX>=FRAME_GRID_COLS || posY<0 || posY>=FRAME_GRID_ROWS)
+        return false;
+
+    return true;
+}
 
 void Frame::UndistortKeyPoints()
 {

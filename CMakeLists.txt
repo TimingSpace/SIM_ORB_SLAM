@@ -25,6 +25,11 @@ src/ORBextractor.cc
 src/ORBmatcher.cc
 src/Frame.cc
 src/Initializer.cc
+src/Map.cc
+src/MapPoint.cc
+src/KeyFrame.cc
+
+
 )
 
 target_link_libraries(${PROJECT_NAME}

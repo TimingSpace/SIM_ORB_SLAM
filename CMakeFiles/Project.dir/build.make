@@ -164,13 +164,85 @@ CMakeFiles/Project.dir/src/Initializer.o.provides: CMakeFiles/Project.dir/src/In
 
 CMakeFiles/Project.dir/src/Initializer.o.provides.build: CMakeFiles/Project.dir/src/Initializer.o
 
+CMakeFiles/Project.dir/src/Map.o: CMakeFiles/Project.dir/flags.make
+CMakeFiles/Project.dir/src/Map.o: src/Map.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Project.dir/src/Map.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Project.dir/src/Map.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Map.cc
+
+CMakeFiles/Project.dir/src/Map.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Project.dir/src/Map.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Map.cc > CMakeFiles/Project.dir/src/Map.i
+
+CMakeFiles/Project.dir/src/Map.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project.dir/src/Map.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Map.cc -o CMakeFiles/Project.dir/src/Map.s
+
+CMakeFiles/Project.dir/src/Map.o.requires:
+.PHONY : CMakeFiles/Project.dir/src/Map.o.requires
+
+CMakeFiles/Project.dir/src/Map.o.provides: CMakeFiles/Project.dir/src/Map.o.requires
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/Map.o.provides.build
+.PHONY : CMakeFiles/Project.dir/src/Map.o.provides
+
+CMakeFiles/Project.dir/src/Map.o.provides.build: CMakeFiles/Project.dir/src/Map.o
+
+CMakeFiles/Project.dir/src/MapPoint.o: CMakeFiles/Project.dir/flags.make
+CMakeFiles/Project.dir/src/MapPoint.o: src/MapPoint.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Project.dir/src/MapPoint.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Project.dir/src/MapPoint.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/MapPoint.cc
+
+CMakeFiles/Project.dir/src/MapPoint.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Project.dir/src/MapPoint.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/MapPoint.cc > CMakeFiles/Project.dir/src/MapPoint.i
+
+CMakeFiles/Project.dir/src/MapPoint.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project.dir/src/MapPoint.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/MapPoint.cc -o CMakeFiles/Project.dir/src/MapPoint.s
+
+CMakeFiles/Project.dir/src/MapPoint.o.requires:
+.PHONY : CMakeFiles/Project.dir/src/MapPoint.o.requires
+
+CMakeFiles/Project.dir/src/MapPoint.o.provides: CMakeFiles/Project.dir/src/MapPoint.o.requires
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/MapPoint.o.provides.build
+.PHONY : CMakeFiles/Project.dir/src/MapPoint.o.provides
+
+CMakeFiles/Project.dir/src/MapPoint.o.provides.build: CMakeFiles/Project.dir/src/MapPoint.o
+
+CMakeFiles/Project.dir/src/KeyFrame.o: CMakeFiles/Project.dir/flags.make
+CMakeFiles/Project.dir/src/KeyFrame.o: src/KeyFrame.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Project.dir/src/KeyFrame.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Project.dir/src/KeyFrame.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/KeyFrame.cc
+
+CMakeFiles/Project.dir/src/KeyFrame.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Project.dir/src/KeyFrame.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/KeyFrame.cc > CMakeFiles/Project.dir/src/KeyFrame.i
+
+CMakeFiles/Project.dir/src/KeyFrame.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project.dir/src/KeyFrame.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/KeyFrame.cc -o CMakeFiles/Project.dir/src/KeyFrame.s
+
+CMakeFiles/Project.dir/src/KeyFrame.o.requires:
+.PHONY : CMakeFiles/Project.dir/src/KeyFrame.o.requires
+
+CMakeFiles/Project.dir/src/KeyFrame.o.provides: CMakeFiles/Project.dir/src/KeyFrame.o.requires
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/KeyFrame.o.provides.build
+.PHONY : CMakeFiles/Project.dir/src/KeyFrame.o.provides
+
+CMakeFiles/Project.dir/src/KeyFrame.o.provides.build: CMakeFiles/Project.dir/src/KeyFrame.o
+
 # Object files for target Project
 Project_OBJECTS = \
 "CMakeFiles/Project.dir/src/ORBVO.o" \
 "CMakeFiles/Project.dir/src/ORBextractor.o" \
 "CMakeFiles/Project.dir/src/ORBmatcher.o" \
 "CMakeFiles/Project.dir/src/Frame.o" \
-"CMakeFiles/Project.dir/src/Initializer.o"
+"CMakeFiles/Project.dir/src/Initializer.o" \
+"CMakeFiles/Project.dir/src/Map.o" \
+"CMakeFiles/Project.dir/src/MapPoint.o" \
+"CMakeFiles/Project.dir/src/KeyFrame.o"
 
 # External object files for target Project
 Project_EXTERNAL_OBJECTS =
@@ -180,6 +252,9 @@ bin/Project: CMakeFiles/Project.dir/src/ORBextractor.o
 bin/Project: CMakeFiles/Project.dir/src/ORBmatcher.o
 bin/Project: CMakeFiles/Project.dir/src/Frame.o
 bin/Project: CMakeFiles/Project.dir/src/Initializer.o
+bin/Project: CMakeFiles/Project.dir/src/Map.o
+bin/Project: CMakeFiles/Project.dir/src/MapPoint.o
+bin/Project: CMakeFiles/Project.dir/src/KeyFrame.o
 bin/Project: CMakeFiles/Project.dir/build.make
 bin/Project: /usr/local/lib/libopencv_videostab.2.4.11.dylib
 bin/Project: /usr/local/lib/libopencv_ts.a
@@ -213,6 +288,9 @@ CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/ORBextractor.o.requi
 CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/ORBmatcher.o.requires
 CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/Frame.o.requires
 CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/Initializer.o.requires
+CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/Map.o.requires
+CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/MapPoint.o.requires
+CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/KeyFrame.o.requires
 .PHONY : CMakeFiles/Project.dir/requires
 
 CMakeFiles/Project.dir/clean:

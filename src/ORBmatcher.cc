@@ -20,7 +20,6 @@
 */
 
 #include "../include/ORBmatcher.h"
-// #include <iostream>
 #include<limits.h>
 
 #include<opencv2/core/core.hpp>

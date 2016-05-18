@@ -5,6 +5,7 @@
 #include "../include/Frame.h"
 #include "../include/ORBmatcher.h"
 #include "../include/Initializer.h"
+#include "../include/Map.h"
 using namespace cv;
 using namespace ORB_SLAM;
 using namespace std;
@@ -50,11 +51,16 @@ int main(int argn, char** argv)
     Frame mCurrentFrame;
     Initializer *mInitializer;
     vector<int> mIniMatches;
-
+    // test 
+    if(mInitializer)
+        delete mInitializer;
+    //end test
 	mIniMatches.resize(mReferenceFrame.mvKeys.size());
 
 	vector<cv::Point2f> mPrevMatched;
-	std::vector<cv::Point3f> mIniP3D;
+	std::vector<cv::Point3f> mIniP3D; // 3D point obtained by initilization
+    
+    Map* mpMap = new Map();
     for(int i=0;i<vstrImageFilenames.size();i++)
     {
     	Mat img=imread(vstrImageFilenames[i],0);
@@ -67,16 +73,17 @@ int main(int argn, char** argv)
 		        mInitialFrame = Frame(mCurrentFrame);
 		        mLastFrame = Frame(mCurrentFrame);
 		        mPrevMatched.resize(mCurrentFrame.mvKeysUn.size());
+
 		        for(size_t i=0; i<mCurrentFrame.mvKeysUn.size(); i++)
 		            mPrevMatched[i]=mCurrentFrame.mvKeysUn[i].pt;
-
 		        if(mInitializer)
-		            delete mInitializer;
-
+                {
+                    //delete mInitializer;
+                }
 		        mInitializer =  new Initializer(mCurrentFrame,1.0,200);
-
 		        mTrackingState = INITIALIZING;
 		    }
+            waitKey(10);
 		    continue;
     	}
     	else if(mTrackingState==INITIALIZING)
@@ -85,6 +92,7 @@ int main(int argn, char** argv)
 		    {
 		        fill(mIniMatches.begin(),mIniMatches.end(),-1);
 		        mTrackingState = NOT_INITIALIZED;
+                
 		        continue;
 		    }    
 
@@ -113,15 +121,21 @@ int main(int argn, char** argv)
 		                nmatches--;
 		            }           
 		        }
+
 		        cout<<"Initialized successfully"<<endl;
 		        mTrackingState = WORKING;
+
 		        //CreateInitialMap(Rcw,tcw);
 		    }
+            waitKey(10);
+		    continue;
     	}
     	waitKey();
     }	
 	return 0;
 }
+
+// Load Image Path and names It is a function from ORB SLAM
 void LoadImages(const string &strPathToSequence, vector<string> &vstrImageFilenames, vector<double> &vTimestamps)
 {
     ifstream fTimes;

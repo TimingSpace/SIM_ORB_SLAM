@@ -22,6 +22,8 @@
 #define FRAME_H
 
 #include "ORBextractor.h"
+#include "MapPoint.h"
+#include "ORBextractor.h"
 #include <vector>
 #include <opencv2/opencv.hpp>
 using namespace std;
@@ -31,6 +33,9 @@ namespace ORB_SLAM
 
 #define FRAME_GRID_ROWS 48
 #define FRAME_GRID_COLS 64
+class MapPoint;
+class KeyFrame;
+class KeyFrameDatabase;
 
 class Frame
 {
@@ -68,6 +73,10 @@ public:
     // Flag to identify outlier associations
     std::vector<bool> mvbOutlier;
 
+    // MapPoints associated to keypoints, NULL pointer if not association
+    std::vector<MapPoint*> mvpMapPoints;
+
+
     // Keypoints are assigned to cells in a grid to reduce matching complexity when projecting MapPoints
     static float mfGridElementWidthInv;
     static float mfGridElementHeightInv;
@@ -80,14 +89,17 @@ public:
     static long unsigned int nNextId;
     long unsigned int mnId;
 
-
+    KeyFrame* mpReferenceKF;
     // void ComputeBoW();
 
     void UpdatePoseMatrices();
 
+    // Check if a MapPoint is in the frustum of the camera and also fills variables of the MapPoint to be used by the tracking
+    bool isInFrustum(MapPoint* pMP, float viewingCosLimit);
 
     // Compute the cell of a keypoint (return false if outside the grid)
     bool PosInGrid(cv::KeyPoint &kp, int &posX, int &posY);
+
     
     vector<size_t> GetFeaturesInArea(const float &x, const float  &y, const float  &r, const int minLevel=-1, const int maxLevel=-1) const;
 
