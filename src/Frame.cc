@@ -62,7 +62,7 @@ Frame::Frame(cv::Mat &im_, const double &timeStamp, ORBextractor* extractor,cv::
 
     if(mvKeys.empty())
         return;
-
+    mvpMapPoints = vector<MapPoint*>(N,static_cast<MapPoint*>(NULL));
 
     UndistortKeyPoints();
 

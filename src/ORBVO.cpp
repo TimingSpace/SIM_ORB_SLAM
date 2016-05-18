@@ -10,6 +10,7 @@ using namespace cv;
 using namespace ORB_SLAM;
 using namespace std;
 void LoadImages(const string &strPathToSequence, vector<string> &vstrImageFilenames, vector<double> &vTimestamps);
+void CreateInitialMap(Frame &mInitialFrame, Frame &mCurrentFrame,vector<int> &mvIniMatches, std::vector<cv::Point3f> &mvIniP3D,Mat &Rcw,Mat &tcw,Map* mpMap);
 int main(int argn, char** argv)
 {
 	// initial path and parameter
@@ -52,8 +53,8 @@ int main(int argn, char** argv)
     Initializer *mInitializer;
     vector<int> mIniMatches;
     // test 
-    if(mInitializer)
-        delete mInitializer;
+    // if(mInitializer)
+    //     delete mInitializer;
     //end test
 	mIniMatches.resize(mReferenceFrame.mvKeys.size());
 
@@ -78,7 +79,7 @@ int main(int argn, char** argv)
 		            mPrevMatched[i]=mCurrentFrame.mvKeysUn[i].pt;
 		        if(mInitializer)
                 {
-                    //delete mInitializer;
+                    //delete mInitializer;// there must be a delete
                 }
 		        mInitializer =  new Initializer(mCurrentFrame,1.0,200);
 		        mTrackingState = INITIALIZING;
@@ -123,16 +124,121 @@ int main(int argn, char** argv)
 		        }
 
 		        cout<<"Initialized successfully"<<endl;
-		        mTrackingState = WORKING;
 
+		        mTrackingState = WORKING;
+                CreateInitialMap(mInitialFrame,mCurrentFrame,mIniMatches,mIniP3D,Rcw,tcw,mpMap);
 		        //CreateInitialMap(Rcw,tcw);
 		    }
             waitKey(10);
 		    continue;
     	}
+        cout<<mpMap->GetAllMapPoints().size()<<endl;
     	waitKey();
     }	
 	return 0;
+}
+
+void CreateInitialMap(Frame &mInitialFrame, Frame &mCurrentFrame,vector<int> &mvIniMatches, std::vector<cv::Point3f> &mvIniP3D,Mat &Rcw,Mat &tcw,Map* mpMap)
+{
+    // Set Frame Poses
+    mInitialFrame.mTcw = cv::Mat::eye(4,4,CV_32F);
+    mCurrentFrame.mTcw = cv::Mat::eye(4,4,CV_32F);
+    Rcw.copyTo(mCurrentFrame.mTcw.rowRange(0,3).colRange(0,3));
+    tcw.copyTo(mCurrentFrame.mTcw.rowRange(0,3).col(3));
+    //cout<<"0000000000000 "<<endl;
+    // Create KeyFrames
+    KeyFrame* pKFini = new KeyFrame(mInitialFrame,mpMap);
+    KeyFrame* pKFcur = new KeyFrame(mCurrentFrame,mpMap);
+    //cout<<"1111111111111 "<<endl;
+
+    // Insert KFs in the map
+    mpMap->AddKeyFrame(pKFini);
+    mpMap->AddKeyFrame(pKFcur);
+    //cout<<"222222222222"<<endl;
+
+    // Create MapPoints and asscoiate to keyframes
+    for(size_t i=0; i<mvIniMatches.size();i++)
+    {
+        if(mvIniMatches[i]<0)
+            continue;
+
+        //Create MapPoint.
+        cv::Mat worldPos(mvIniP3D[i]);
+        //cout<<"33330"<<endl;
+        MapPoint* pMP = new MapPoint(worldPos,pKFcur,mpMap);
+        //cout<<"33330.5"<<endl;
+        pKFini->AddMapPoint(pMP,i);
+        //cout<<"33330.8"<<endl;
+        pKFcur->AddMapPoint(pMP,mvIniMatches[i]);
+        //cout<<"33331"<<endl;
+        pMP->AddObservation(pKFini,i);
+        pMP->AddObservation(pKFcur,mvIniMatches[i]);
+        //cout<<"33332"<<endl;
+        pMP->ComputeDistinctiveDescriptors();
+        pMP->UpdateNormalAndDepth();
+        //cout<<"33333"<<endl;
+        //Fill Current Frame structure
+        mCurrentFrame.mvpMapPoints[mvIniMatches[i]] = pMP;
+
+        //Add to Map
+        mpMap->AddMapPoint(pMP);
+
+    }
+    //cout<<"44444444444"<<endl;
+
+    // // Update Connections
+    // pKFini->UpdateConnections();
+    // pKFcur->UpdateConnections();
+
+    // // Bundle Adjustment
+
+    // Optimizer::GlobalBundleAdjustemnt(mpMap,20);
+
+    // // Set median depth to 1
+    // float medianDepth = pKFini->ComputeSceneMedianDepth(2);
+    // float invMedianDepth = 1.0f/medianDepth;
+
+    // if(medianDepth<0 || pKFcur->TrackedMapPoints()<100)
+    // {
+    //     ROS_INFO("Wrong initialization, reseting...");
+    //     Reset();
+    //     return;
+    // }
+
+    // // Scale initial baseline
+    // cv::Mat Tc2w = pKFcur->GetPose();
+    // Tc2w.col(3).rowRange(0,3) = Tc2w.col(3).rowRange(0,3)*invMedianDepth;
+    // pKFcur->SetPose(Tc2w);
+
+    // // Scale points
+    // vector<MapPoint*> vpAllMapPoints = pKFini->GetMapPointMatches();
+    // for(size_t iMP=0; iMP<vpAllMapPoints.size(); iMP++)
+    // {
+    //     if(vpAllMapPoints[iMP])
+    //     {
+    //         MapPoint* pMP = vpAllMapPoints[iMP];
+    //         pMP->SetWorldPos(pMP->GetWorldPos()*invMedianDepth);
+    //     }
+    // }
+
+    // mpLocalMapper->InsertKeyFrame(pKFini);
+    // mpLocalMapper->InsertKeyFrame(pKFcur);
+
+    // mCurrentFrame.mTcw = pKFcur->GetPose().clone();
+    // mLastFrame = Frame(mCurrentFrame);
+    // mnLastKeyFrameId=mCurrentFrame.mnId;
+    // mpLastKeyFrame = pKFcur;
+
+    // mvpLocalKeyFrames.push_back(pKFcur);
+    // mvpLocalKeyFrames.push_back(pKFini);
+    // mvpLocalMapPoints=mpMap->GetAllMapPoints();
+    // mpReferenceKF = pKFcur;
+
+    // mpMap->SetReferenceMapPoints(mvpLocalMapPoints);
+
+    // mpMapPublisher->SetCurrentCameraPose(pKFcur->GetPose());
+
+    // mState=WORKING;
 }
 
 // Load Image Path and names It is a function from ORB SLAM
