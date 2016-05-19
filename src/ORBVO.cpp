@@ -137,13 +137,17 @@ int main(int argn, char** argv)
     	}
         else if(mTrackingState==WORKING)
         {
-            cout<<mCurrentFrame.mvKeys.size()<<endl;
+
+            // cout<<mLastFrame.mvpMapPoints.size()<<endl;
             
 
             bool trackSuccess=TrackPreviousFrame(mCurrentFrame,mLastFrame,mpMap);
+            if(trackSuccess)
+            {
+                
+            }
             mLastFrame = Frame(mCurrentFrame);
-
-            cout<<trackSuccess<<"    "<<mCurrentFrame.mTcw<<endl;
+            // cout<<trackSuccess<<"    "<<mCurrentFrame.mTcw<<endl;
         }
         //cout<<mpMap->GetAllMapPoints().size()<<endl;
     	waitKey();

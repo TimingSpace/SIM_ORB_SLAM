@@ -205,19 +205,19 @@ src/MapPoint.s:
 .PHONY : src/MapPoint.s
 
 # target to build an object file
-src/ORBVO.o:
-	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o
-.PHONY : src/ORBVO.o
+src/ORB_tracking.o:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o
+.PHONY : src/ORB_tracking.o
 
 # target to preprocess a source file
-src/ORBVO.i:
-	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.i
-.PHONY : src/ORBVO.i
+src/ORB_tracking.i:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.i
+.PHONY : src/ORB_tracking.i
 
 # target to generate assembly for a file
-src/ORBVO.s:
-	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.s
-.PHONY : src/ORBVO.s
+src/ORB_tracking.s:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.s
+.PHONY : src/ORB_tracking.s
 
 # target to build an object file
 src/ORBextractor.o:
@@ -264,6 +264,21 @@ src/Optimizer.s:
 	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/Optimizer.s
 .PHONY : src/Optimizer.s
 
+# target to build an object file
+src/Tracking.o:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o
+.PHONY : src/Tracking.o
+
+# target to preprocess a source file
+src/Tracking.i:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.i
+.PHONY : src/Tracking.i
+
+# target to generate assembly for a file
+src/Tracking.s:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.s
+.PHONY : src/Tracking.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -291,9 +306,9 @@ help:
 	@echo "... src/MapPoint.o"
 	@echo "... src/MapPoint.i"
 	@echo "... src/MapPoint.s"
-	@echo "... src/ORBVO.o"
-	@echo "... src/ORBVO.i"
-	@echo "... src/ORBVO.s"
+	@echo "... src/ORB_tracking.o"
+	@echo "... src/ORB_tracking.i"
+	@echo "... src/ORB_tracking.s"
 	@echo "... src/ORBextractor.o"
 	@echo "... src/ORBextractor.i"
 	@echo "... src/ORBextractor.s"
@@ -303,6 +318,9 @@ help:
 	@echo "... src/Optimizer.o"
 	@echo "... src/Optimizer.i"
 	@echo "... src/Optimizer.s"
+	@echo "... src/Tracking.o"
+	@echo "... src/Tracking.i"
+	@echo "... src/Tracking.s"
 .PHONY : help
 
 

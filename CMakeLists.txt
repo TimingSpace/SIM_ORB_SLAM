@@ -17,6 +17,7 @@ find_package(OpenCV REQUIRED)
 
 include_directories(
 ${PROJECT_SOURCE_DIR}
+${PROJECT_SOURCE_DIR}/include
 /usr/local/include/eigen3
 /usr/local/include
 )
@@ -25,7 +26,7 @@ ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib
 )
 
 add_executable(${PROJECT_NAME}
-src/ORBVO.cpp
+src/ORB_tracking.cpp
 src/ORBextractor.cc
 src/ORBmatcher.cc
 src/Frame.cc
@@ -35,6 +36,7 @@ src/MapPoint.cc
 src/KeyFrame.cc
 src/Optimizer.cc
 src/Converter.cc
+src/Tracking.cc
 
 
 )

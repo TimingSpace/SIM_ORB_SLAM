@@ -49,28 +49,28 @@ include CMakeFiles/SIM_ORB_SLAM.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/SIM_ORB_SLAM.dir/flags.make
 
-CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o: CMakeFiles/SIM_ORB_SLAM.dir/flags.make
-CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o: src/ORBVO.cpp
+CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o: CMakeFiles/SIM_ORB_SLAM.dir/flags.make
+CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o: src/ORB_tracking.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORBVO.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORB_tracking.cpp
 
-CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORBVO.cpp > CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.i
+CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORB_tracking.cpp > CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.i
 
-CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORBVO.cpp -o CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.s
+CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORB_tracking.cpp -o CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.s
 
-CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.requires:
-.PHONY : CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.requires
+CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.requires:
+.PHONY : CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.requires
 
-CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.provides: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.requires
-	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.provides.build
-.PHONY : CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.provides
+CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.provides: CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.requires
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.provides.build
+.PHONY : CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.provides
 
-CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.provides.build: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o
+CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.provides.build: CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o
 
 CMakeFiles/SIM_ORB_SLAM.dir/src/ORBextractor.o: CMakeFiles/SIM_ORB_SLAM.dir/flags.make
 CMakeFiles/SIM_ORB_SLAM.dir/src/ORBextractor.o: src/ORBextractor.cc
@@ -279,9 +279,32 @@ CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o.provides: CMakeFiles/SIM_ORB_SLAM.di
 
 CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o.provides.build: CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o
 
+CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o: CMakeFiles/SIM_ORB_SLAM.dir/flags.make
+CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o: src/Tracking.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles $(CMAKE_PROGRESS_11)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Tracking.cc
+
+CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Tracking.cc > CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.i
+
+CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Tracking.cc -o CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.s
+
+CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.requires:
+.PHONY : CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.requires
+
+CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.provides: CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.requires
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.provides.build
+.PHONY : CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.provides
+
+CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.provides.build: CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o
+
 # Object files for target SIM_ORB_SLAM
 SIM_ORB_SLAM_OBJECTS = \
-"CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o" \
+"CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o" \
 "CMakeFiles/SIM_ORB_SLAM.dir/src/ORBextractor.o" \
 "CMakeFiles/SIM_ORB_SLAM.dir/src/ORBmatcher.o" \
 "CMakeFiles/SIM_ORB_SLAM.dir/src/Frame.o" \
@@ -290,12 +313,13 @@ SIM_ORB_SLAM_OBJECTS = \
 "CMakeFiles/SIM_ORB_SLAM.dir/src/MapPoint.o" \
 "CMakeFiles/SIM_ORB_SLAM.dir/src/KeyFrame.o" \
 "CMakeFiles/SIM_ORB_SLAM.dir/src/Optimizer.o" \
-"CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o"
+"CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o" \
+"CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o"
 
 # External object files for target SIM_ORB_SLAM
 SIM_ORB_SLAM_EXTERNAL_OBJECTS =
 
-bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o
+bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o
 bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBextractor.o
 bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBmatcher.o
 bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/Frame.o
@@ -305,6 +329,7 @@ bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/MapPoint.o
 bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/KeyFrame.o
 bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/Optimizer.o
 bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o
+bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o
 bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/build.make
 bin/SIM_ORB_SLAM: /usr/local/lib/libopencv_videostab.2.4.11.dylib
 bin/SIM_ORB_SLAM: /usr/local/lib/libopencv_ts.a
@@ -333,7 +358,7 @@ bin/SIM_ORB_SLAM: CMakeFiles/SIM_ORB_SLAM.dir/link.txt
 CMakeFiles/SIM_ORB_SLAM.dir/build: bin/SIM_ORB_SLAM
 .PHONY : CMakeFiles/SIM_ORB_SLAM.dir/build
 
-CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBVO.o.requires
+CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o.requires
 CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBextractor.o.requires
 CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/ORBmatcher.o.requires
 CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/Frame.o.requires
@@ -343,6 +368,7 @@ CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/MapPoint.o
 CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/KeyFrame.o.requires
 CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/Optimizer.o.requires
 CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o.requires
+CMakeFiles/SIM_ORB_SLAM.dir/requires: CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o.requires
 .PHONY : CMakeFiles/SIM_ORB_SLAM.dir/requires
 
 CMakeFiles/SIM_ORB_SLAM.dir/clean:
