@@ -12,6 +12,7 @@ using namespace ORB_SLAM;
 using namespace std;
 void LoadImages(const string &strPathToSequence, vector<string> &vstrImageFilenames, vector<double> &vTimestamps);
 void CreateInitialMap(Frame &mInitialFrame, Frame &mCurrentFrame,vector<int> &mvIniMatches, std::vector<cv::Point3f> &mvIniP3D,Mat &Rcw,Mat &tcw,Map* mpMap);
+bool TrackPreviousFrame(Frame& mCurrentFrame, Frame &mLastFrame, Map* mpMap);
 int main(int argn, char** argv)
 {
 	// initial path and parameter
@@ -136,9 +137,15 @@ int main(int argn, char** argv)
     	}
         else if(mTrackingState==WORKING)
         {
+            cout<<mCurrentFrame.mvKeys.size()<<endl;
+            
 
+            bool trackSuccess=TrackPreviousFrame(mCurrentFrame,mLastFrame,mpMap);
+            mLastFrame = Frame(mCurrentFrame);
+
+            cout<<trackSuccess<<"    "<<mCurrentFrame.mTcw<<endl;
         }
-        cout<<mpMap->GetAllMapPoints().size()<<endl;
+        //cout<<mpMap->GetAllMapPoints().size()<<endl;
     	waitKey();
     }	
 	return 0;
@@ -153,9 +160,9 @@ bool TrackPreviousFrame(Frame& mCurrentFrame, Frame &mLastFrame, Map* mpMap)
     int maxOctave = mCurrentFrame.mvScaleFactors.size()-1;
     if(mpMap->KeyFramesInMap()>5)
         minOctave = maxOctave/2+1;
-
+    imshow("LastFrame",mLastFrame.im);
     int nmatches = matcher.WindowSearch(mLastFrame,mCurrentFrame,200,vpMapPointMatches,minOctave);
-
+    cout<<nmatches<<endl;
     // If not enough matches, search again without scale constraint
     if(nmatches<10)
     {
