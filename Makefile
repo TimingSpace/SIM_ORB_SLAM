@@ -175,6 +175,21 @@ src/KeyFrame.s:
 .PHONY : src/KeyFrame.s
 
 # target to build an object file
+src/LocalMapping.o:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/LocalMapping.o
+.PHONY : src/LocalMapping.o
+
+# target to preprocess a source file
+src/LocalMapping.i:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/LocalMapping.i
+.PHONY : src/LocalMapping.i
+
+# target to generate assembly for a file
+src/LocalMapping.s:
+	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/LocalMapping.s
+.PHONY : src/LocalMapping.s
+
+# target to build an object file
 src/Map.o:
 	$(MAKE) -f CMakeFiles/SIM_ORB_SLAM.dir/build.make CMakeFiles/SIM_ORB_SLAM.dir/src/Map.o
 .PHONY : src/Map.o
@@ -300,6 +315,9 @@ help:
 	@echo "... src/KeyFrame.o"
 	@echo "... src/KeyFrame.i"
 	@echo "... src/KeyFrame.s"
+	@echo "... src/LocalMapping.o"
+	@echo "... src/LocalMapping.i"
+	@echo "... src/LocalMapping.s"
 	@echo "... src/Map.o"
 	@echo "... src/Map.i"
 	@echo "... src/Map.s"

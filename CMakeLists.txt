@@ -37,6 +37,7 @@ src/KeyFrame.cc
 src/Optimizer.cc
 src/Converter.cc
 src/Tracking.cc
+src/LocalMapping.cc
 
 
 )

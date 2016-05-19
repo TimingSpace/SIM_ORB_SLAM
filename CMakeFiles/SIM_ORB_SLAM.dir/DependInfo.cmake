@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Frame.cc" "/Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles/SIM_ORB_SLAM.dir/src/Frame.o"
   "/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Initializer.cc" "/Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles/SIM_ORB_SLAM.dir/src/Initializer.o"
   "/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/KeyFrame.cc" "/Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles/SIM_ORB_SLAM.dir/src/KeyFrame.o"
+  "/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/LocalMapping.cc" "/Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles/SIM_ORB_SLAM.dir/src/LocalMapping.o"
   "/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Map.cc" "/Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles/SIM_ORB_SLAM.dir/src/Map.o"
   "/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/MapPoint.cc" "/Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles/SIM_ORB_SLAM.dir/src/MapPoint.o"
   "/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORB_tracking.cpp" "/Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles/SIM_ORB_SLAM.dir/src/ORB_tracking.o"

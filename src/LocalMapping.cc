@@ -19,117 +19,112 @@
 */
 
 #include "LocalMapping.h"
-#include "LoopClosing.h"
+// #include "LoopClosing.h"
 #include "ORBmatcher.h"
 #include "Optimizer.h"
-
-#include <ros/ros.h>
 
 namespace ORB_SLAM
 {
 
 LocalMapping::LocalMapping(Map *pMap):
-    mbResetRequested(false), mpMap(pMap),  mbAbortBA(false), mbStopped(false), mbStopRequested(false), mbAcceptKeyFrames(true)
+    mpMap(pMap)
 {
 }
 
-void LocalMapping::SetLoopCloser(LoopClosing* pLoopCloser)
-{
-    mpLoopCloser = pLoopCloser;
-}
+// void LocalMapping::SetLoopCloser(LoopClosing* pLoopCloser)
+// {
+//     mpLoopCloser = pLoopCloser;
+// }
 
-void LocalMapping::SetTracker(Tracking *pTracker)
-{
-    mpTracker=pTracker;
-}
+// void LocalMapping::SetTracker(Tracking *pTracker)
+// {
+//     mpTracker=pTracker;
+// }
 
-void LocalMapping::Run()
-{
+// void LocalMapping::Run()
+// {
 
-    ros::Rate r(500);
-    while(ros::ok())
-    {
-        // Check if there are keyframes in the queue
-        if(CheckNewKeyFrames())
-        {            
-            // Tracking will see that Local Mapping is busy
-            SetAcceptKeyFrames(false);
+//     ros::Rate r(500);
+//     while(ros::ok())
+//     {
+//         // Check if there are keyframes in the queue
+//         if(CheckNewKeyFrames())
+//         {            
+//             // Tracking will see that Local Mapping is busy
+//             SetAcceptKeyFrames(false);
 
-            // BoW conversion and insertion in Map
-            ProcessNewKeyFrame();
+//             // BoW conversion and insertion in Map
+//             ProcessNewKeyFrame();
 
-            // Check recent MapPoints
-            MapPointCulling();
+//             // Check recent MapPoints
+//             MapPointCulling();
 
-            // Triangulate new MapPoints
-            CreateNewMapPoints();
+//             // Triangulate new MapPoints
+//             CreateNewMapPoints();
 
-            // Find more matches in neighbor keyframes and fuse point duplications
-            SearchInNeighbors();
+//             // Find more matches in neighbor keyframes and fuse point duplications
+//             SearchInNeighbors();
 
-            mbAbortBA = false;
+//             mbAbortBA = false;
 
-            if(!CheckNewKeyFrames() && !stopRequested())
-            {
-                // Local BA
-                Optimizer::LocalBundleAdjustment(mpCurrentKeyFrame,&mbAbortBA);
+//             if(!CheckNewKeyFrames() && !stopRequested())
+//             {
+//                 // Local BA
+//                 Optimizer::LocalBundleAdjustment(mpCurrentKeyFrame,&mbAbortBA);
 
-                // Check redundant local Keyframes
-                KeyFrameCulling();
+//                 // Check redundant local Keyframes
+//                 KeyFrameCulling();
 
-                mpMap->SetFlagAfterBA();
+//                 mpMap->SetFlagAfterBA();
 
-                // Tracking will see Local Mapping idle
-                if(!CheckNewKeyFrames())
-                    SetAcceptKeyFrames(true);
-            }
+//                 // Tracking will see Local Mapping idle
+//                 if(!CheckNewKeyFrames())
+//                     SetAcceptKeyFrames(true);
+//             }
 
-            mpLoopCloser->InsertKeyFrame(mpCurrentKeyFrame);
-        }
+//             mpLoopCloser->InsertKeyFrame(mpCurrentKeyFrame);
+//         }
 
-        // Safe area to stop
-        if(stopRequested())
-        {
-            Stop();
-            ros::Rate r2(1000);
-            while(isStopped() && ros::ok())
-            {
-                r2.sleep();
-            }
+//         // Safe area to stop
+//         if(stopRequested())
+//         {
+//             Stop();
+//             ros::Rate r2(1000);
+//             while(isStopped() && ros::ok())
+//             {
+//                 r2.sleep();
+//             }
 
-            SetAcceptKeyFrames(true);
-        }
+//             SetAcceptKeyFrames(true);
+//         }
 
-        ResetIfRequested();
-        r.sleep();
-    }
-}
+//         ResetIfRequested();
+//         r.sleep();
+//     }
+// }
 
 void LocalMapping::InsertKeyFrame(KeyFrame *pKF)
 {
-    boost::mutex::scoped_lock lock(mMutexNewKFs);
+
     mlNewKeyFrames.push_back(pKF);
-    mbAbortBA=true;
-    SetAcceptKeyFrames(false);
+    ProcessNewKeyFrame();
 }
 
 
 bool LocalMapping::CheckNewKeyFrames()
 {
-    boost::mutex::scoped_lock lock(mMutexNewKFs);
     return(!mlNewKeyFrames.empty());
 }
 
 void LocalMapping::ProcessNewKeyFrame()
 {
     {
-        boost::mutex::scoped_lock lock(mMutexNewKFs);
         mpCurrentKeyFrame = mlNewKeyFrames.front();
         mlNewKeyFrames.pop_front();
     }
 
     // Compute Bags of Words structures
-    mpCurrentKeyFrame->ComputeBoW();
+    //mpCurrentKeyFrame->ComputeBoW();
 
     if(mpCurrentKeyFrame->mnId==0)
         return;
@@ -202,173 +197,173 @@ void LocalMapping::MapPointCulling()
     }
 }
 
-void LocalMapping::CreateNewMapPoints()
-{
-    // Take neighbor keyframes in covisibility graph
-    vector<KeyFrame*> vpNeighKFs = mpCurrentKeyFrame->GetBestCovisibilityKeyFrames(20);
+// void LocalMapping::CreateNewMapPoints()
+// {
+//     // Take neighbor keyframes in covisibility graph
+//     vector<KeyFrame*> vpNeighKFs = mpCurrentKeyFrame->GetBestCovisibilityKeyFrames(20);
 
-    ORBmatcher matcher(0.6,false);
+//     ORBmatcher matcher(0.6,false);
 
-    cv::Mat Rcw1 = mpCurrentKeyFrame->GetRotation();
-    cv::Mat Rwc1 = Rcw1.t();
-    cv::Mat tcw1 = mpCurrentKeyFrame->GetTranslation();
-    cv::Mat Tcw1(3,4,CV_32F);
-    Rcw1.copyTo(Tcw1.colRange(0,3));
-    tcw1.copyTo(Tcw1.col(3));
-    cv::Mat Ow1 = mpCurrentKeyFrame->GetCameraCenter();
+//     cv::Mat Rcw1 = mpCurrentKeyFrame->GetRotation();
+//     cv::Mat Rwc1 = Rcw1.t();
+//     cv::Mat tcw1 = mpCurrentKeyFrame->GetTranslation();
+//     cv::Mat Tcw1(3,4,CV_32F);
+//     Rcw1.copyTo(Tcw1.colRange(0,3));
+//     tcw1.copyTo(Tcw1.col(3));
+//     cv::Mat Ow1 = mpCurrentKeyFrame->GetCameraCenter();
 
-    const float fx1 = mpCurrentKeyFrame->fx;
-    const float fy1 = mpCurrentKeyFrame->fy;
-    const float cx1 = mpCurrentKeyFrame->cx;
-    const float cy1 = mpCurrentKeyFrame->cy;
-    const float invfx1 = 1.0f/fx1;
-    const float invfy1 = 1.0f/fy1;
+//     const float fx1 = mpCurrentKeyFrame->fx;
+//     const float fy1 = mpCurrentKeyFrame->fy;
+//     const float cx1 = mpCurrentKeyFrame->cx;
+//     const float cy1 = mpCurrentKeyFrame->cy;
+//     const float invfx1 = 1.0f/fx1;
+//     const float invfy1 = 1.0f/fy1;
 
-    const float ratioFactor = 1.5f*mpCurrentKeyFrame->GetScaleFactor();
+//     const float ratioFactor = 1.5f*mpCurrentKeyFrame->GetScaleFactor();
 
-    // Search matches with epipolar restriction and triangulate
-    for(size_t i=0; i<vpNeighKFs.size(); i++)
-    {
-        KeyFrame* pKF2 = vpNeighKFs[i];
+//     // Search matches with epipolar restriction and triangulate
+//     for(size_t i=0; i<vpNeighKFs.size(); i++)
+//     {
+//         KeyFrame* pKF2 = vpNeighKFs[i];
 
-        // Check first that baseline is not too short
-        // Small translation errors for short baseline keyframes make scale to diverge
-        cv::Mat Ow2 = pKF2->GetCameraCenter();
-        cv::Mat vBaseline = Ow2-Ow1;
-        const float baseline = cv::norm(vBaseline);
-        const float medianDepthKF2 = pKF2->ComputeSceneMedianDepth(2);
-        const float ratioBaselineDepth = baseline/medianDepthKF2;
+//         // Check first that baseline is not too short
+//         // Small translation errors for short baseline keyframes make scale to diverge
+//         cv::Mat Ow2 = pKF2->GetCameraCenter();
+//         cv::Mat vBaseline = Ow2-Ow1;
+//         const float baseline = cv::norm(vBaseline);
+//         const float medianDepthKF2 = pKF2->ComputeSceneMedianDepth(2);
+//         const float ratioBaselineDepth = baseline/medianDepthKF2;
 
-        if(ratioBaselineDepth<0.01)
-            continue;
+//         if(ratioBaselineDepth<0.01)
+//             continue;
 
-        // Compute Fundamental Matrix
-        cv::Mat F12 = ComputeF12(mpCurrentKeyFrame,pKF2);
+//         // Compute Fundamental Matrix
+//         cv::Mat F12 = ComputeF12(mpCurrentKeyFrame,pKF2);
 
-        // Search matches that fulfil epipolar constraint
-        vector<cv::KeyPoint> vMatchedKeysUn1;
-        vector<cv::KeyPoint> vMatchedKeysUn2;
-        vector<pair<size_t,size_t> > vMatchedIndices;
-        matcher.SearchForTriangulation(mpCurrentKeyFrame,pKF2,F12,vMatchedKeysUn1,vMatchedKeysUn2,vMatchedIndices);
+//         // Search matches that fulfil epipolar constraint
+//         vector<cv::KeyPoint> vMatchedKeysUn1;
+//         vector<cv::KeyPoint> vMatchedKeysUn2;
+//         vector<pair<size_t,size_t> > vMatchedIndices;
+//         matcher.SearchForTriangulation(mpCurrentKeyFrame,pKF2,F12,vMatchedKeysUn1,vMatchedKeysUn2,vMatchedIndices);
 
-        cv::Mat Rcw2 = pKF2->GetRotation();
-        cv::Mat Rwc2 = Rcw2.t();
-        cv::Mat tcw2 = pKF2->GetTranslation();
-        cv::Mat Tcw2(3,4,CV_32F);
-        Rcw2.copyTo(Tcw2.colRange(0,3));
-        tcw2.copyTo(Tcw2.col(3));
+//         cv::Mat Rcw2 = pKF2->GetRotation();
+//         cv::Mat Rwc2 = Rcw2.t();
+//         cv::Mat tcw2 = pKF2->GetTranslation();
+//         cv::Mat Tcw2(3,4,CV_32F);
+//         Rcw2.copyTo(Tcw2.colRange(0,3));
+//         tcw2.copyTo(Tcw2.col(3));
 
-        const float fx2 = pKF2->fx;
-        const float fy2 = pKF2->fy;
-        const float cx2 = pKF2->cx;
-        const float cy2 = pKF2->cy;
-        const float invfx2 = 1.0f/fx2;
-        const float invfy2 = 1.0f/fy2;
+//         const float fx2 = pKF2->fx;
+//         const float fy2 = pKF2->fy;
+//         const float cx2 = pKF2->cx;
+//         const float cy2 = pKF2->cy;
+//         const float invfx2 = 1.0f/fx2;
+//         const float invfy2 = 1.0f/fy2;
 
-        // Triangulate each match
-        for(size_t ikp=0, iendkp=vMatchedKeysUn1.size(); ikp<iendkp; ikp++)
-        {
-            const int idx1 = vMatchedIndices[ikp].first;
-            const int idx2 = vMatchedIndices[ikp].second;
+//         // Triangulate each match
+//         for(size_t ikp=0, iendkp=vMatchedKeysUn1.size(); ikp<iendkp; ikp++)
+//         {
+//             const int idx1 = vMatchedIndices[ikp].first;
+//             const int idx2 = vMatchedIndices[ikp].second;
 
-            const cv::KeyPoint &kp1 = vMatchedKeysUn1[ikp];
-            const cv::KeyPoint &kp2 = vMatchedKeysUn2[ikp];
+//             const cv::KeyPoint &kp1 = vMatchedKeysUn1[ikp];
+//             const cv::KeyPoint &kp2 = vMatchedKeysUn2[ikp];
 
-            // Check parallax between rays
-            cv::Mat xn1 = (cv::Mat_<float>(3,1) << (kp1.pt.x-cx1)*invfx1, (kp1.pt.y-cy1)*invfy1, 1.0 );
-            cv::Mat ray1 = Rwc1*xn1;
-            cv::Mat xn2 = (cv::Mat_<float>(3,1) << (kp2.pt.x-cx2)*invfx2, (kp2.pt.y-cy2)*invfy2, 1.0 );
-            cv::Mat ray2 = Rwc2*xn2;
-            const float cosParallaxRays = ray1.dot(ray2)/(cv::norm(ray1)*cv::norm(ray2));
+//             // Check parallax between rays
+//             cv::Mat xn1 = (cv::Mat_<float>(3,1) << (kp1.pt.x-cx1)*invfx1, (kp1.pt.y-cy1)*invfy1, 1.0 );
+//             cv::Mat ray1 = Rwc1*xn1;
+//             cv::Mat xn2 = (cv::Mat_<float>(3,1) << (kp2.pt.x-cx2)*invfx2, (kp2.pt.y-cy2)*invfy2, 1.0 );
+//             cv::Mat ray2 = Rwc2*xn2;
+//             const float cosParallaxRays = ray1.dot(ray2)/(cv::norm(ray1)*cv::norm(ray2));
 
-            if(cosParallaxRays<0 || cosParallaxRays>0.9998)
-                continue;
+//             if(cosParallaxRays<0 || cosParallaxRays>0.9998)
+//                 continue;
 
-            // Linear Triangulation Method
-            cv::Mat A(4,4,CV_32F);
-            A.row(0) = xn1.at<float>(0)*Tcw1.row(2)-Tcw1.row(0);
-            A.row(1) = xn1.at<float>(1)*Tcw1.row(2)-Tcw1.row(1);
-            A.row(2) = xn2.at<float>(0)*Tcw2.row(2)-Tcw2.row(0);
-            A.row(3) = xn2.at<float>(1)*Tcw2.row(2)-Tcw2.row(1);
+//             // Linear Triangulation Method
+//             cv::Mat A(4,4,CV_32F);
+//             A.row(0) = xn1.at<float>(0)*Tcw1.row(2)-Tcw1.row(0);
+//             A.row(1) = xn1.at<float>(1)*Tcw1.row(2)-Tcw1.row(1);
+//             A.row(2) = xn2.at<float>(0)*Tcw2.row(2)-Tcw2.row(0);
+//             A.row(3) = xn2.at<float>(1)*Tcw2.row(2)-Tcw2.row(1);
 
-            cv::Mat w,u,vt;
-            cv::SVD::compute(A,w,u,vt,cv::SVD::MODIFY_A| cv::SVD::FULL_UV);
+//             cv::Mat w,u,vt;
+//             cv::SVD::compute(A,w,u,vt,cv::SVD::MODIFY_A| cv::SVD::FULL_UV);
 
-            cv::Mat x3D = vt.row(3).t();
+//             cv::Mat x3D = vt.row(3).t();
 
-            if(x3D.at<float>(3)==0)
-                continue;
+//             if(x3D.at<float>(3)==0)
+//                 continue;
 
-            // Euclidean coordinates
-            x3D = x3D.rowRange(0,3)/x3D.at<float>(3);
-            cv::Mat x3Dt = x3D.t();
+//             // Euclidean coordinates
+//             x3D = x3D.rowRange(0,3)/x3D.at<float>(3);
+//             cv::Mat x3Dt = x3D.t();
 
-            //Check triangulation in front of cameras
-            float z1 = Rcw1.row(2).dot(x3Dt)+tcw1.at<float>(2);
-            if(z1<=0)
-                continue;
+//             //Check triangulation in front of cameras
+//             float z1 = Rcw1.row(2).dot(x3Dt)+tcw1.at<float>(2);
+//             if(z1<=0)
+//                 continue;
 
-            float z2 = Rcw2.row(2).dot(x3Dt)+tcw2.at<float>(2);
-            if(z2<=0)
-                continue;
+//             float z2 = Rcw2.row(2).dot(x3Dt)+tcw2.at<float>(2);
+//             if(z2<=0)
+//                 continue;
 
-            //Check reprojection error in first keyframe
-            float sigmaSquare1 = mpCurrentKeyFrame->GetSigma2(kp1.octave);
-            float x1 = Rcw1.row(0).dot(x3Dt)+tcw1.at<float>(0);
-            float y1 = Rcw1.row(1).dot(x3Dt)+tcw1.at<float>(1);
-            float invz1 = 1.0/z1;
-            float u1 = fx1*x1*invz1+cx1;
-            float v1 = fy1*y1*invz1+cy1;
-            float errX1 = u1 - kp1.pt.x;
-            float errY1 = v1 - kp1.pt.y;
-            if((errX1*errX1+errY1*errY1)>5.991*sigmaSquare1)
-                continue;
+//             //Check reprojection error in first keyframe
+//             float sigmaSquare1 = mpCurrentKeyFrame->GetSigma2(kp1.octave);
+//             float x1 = Rcw1.row(0).dot(x3Dt)+tcw1.at<float>(0);
+//             float y1 = Rcw1.row(1).dot(x3Dt)+tcw1.at<float>(1);
+//             float invz1 = 1.0/z1;
+//             float u1 = fx1*x1*invz1+cx1;
+//             float v1 = fy1*y1*invz1+cy1;
+//             float errX1 = u1 - kp1.pt.x;
+//             float errY1 = v1 - kp1.pt.y;
+//             if((errX1*errX1+errY1*errY1)>5.991*sigmaSquare1)
+//                 continue;
 
-            //Check reprojection error in second keyframe
-            float sigmaSquare2 = pKF2->GetSigma2(kp2.octave);
-            float x2 = Rcw2.row(0).dot(x3Dt)+tcw2.at<float>(0);
-            float y2 = Rcw2.row(1).dot(x3Dt)+tcw2.at<float>(1);
-            float invz2 = 1.0/z2;
-            float u2 = fx2*x2*invz2+cx2;
-            float v2 = fy2*y2*invz2+cy2;
-            float errX2 = u2 - kp2.pt.x;
-            float errY2 = v2 - kp2.pt.y;
-            if((errX2*errX2+errY2*errY2)>5.991*sigmaSquare2)
-                continue;
+//             //Check reprojection error in second keyframe
+//             float sigmaSquare2 = pKF2->GetSigma2(kp2.octave);
+//             float x2 = Rcw2.row(0).dot(x3Dt)+tcw2.at<float>(0);
+//             float y2 = Rcw2.row(1).dot(x3Dt)+tcw2.at<float>(1);
+//             float invz2 = 1.0/z2;
+//             float u2 = fx2*x2*invz2+cx2;
+//             float v2 = fy2*y2*invz2+cy2;
+//             float errX2 = u2 - kp2.pt.x;
+//             float errY2 = v2 - kp2.pt.y;
+//             if((errX2*errX2+errY2*errY2)>5.991*sigmaSquare2)
+//                 continue;
 
-            //Check scale consistency
-            cv::Mat normal1 = x3D-Ow1;
-            float dist1 = cv::norm(normal1);
+//             //Check scale consistency
+//             cv::Mat normal1 = x3D-Ow1;
+//             float dist1 = cv::norm(normal1);
 
-            cv::Mat normal2 = x3D-Ow2;
-            float dist2 = cv::norm(normal2);
+//             cv::Mat normal2 = x3D-Ow2;
+//             float dist2 = cv::norm(normal2);
 
-            if(dist1==0 || dist2==0)
-                continue;
+//             if(dist1==0 || dist2==0)
+//                 continue;
 
-            float ratioDist = dist1/dist2;
-            float ratioOctave = mpCurrentKeyFrame->GetScaleFactor(kp1.octave)/pKF2->GetScaleFactor(kp2.octave);
-            if(ratioDist*ratioFactor<ratioOctave || ratioDist>ratioOctave*ratioFactor)
-                continue;
+//             float ratioDist = dist1/dist2;
+//             float ratioOctave = mpCurrentKeyFrame->GetScaleFactor(kp1.octave)/pKF2->GetScaleFactor(kp2.octave);
+//             if(ratioDist*ratioFactor<ratioOctave || ratioDist>ratioOctave*ratioFactor)
+//                 continue;
 
-            // Triangulation is succesfull
-            MapPoint* pMP = new MapPoint(x3D,mpCurrentKeyFrame,mpMap);
+//             // Triangulation is succesfull
+//             MapPoint* pMP = new MapPoint(x3D,mpCurrentKeyFrame,mpMap);
 
-            pMP->AddObservation(pKF2,idx2);
-            pMP->AddObservation(mpCurrentKeyFrame,idx1);
+//             pMP->AddObservation(pKF2,idx2);
+//             pMP->AddObservation(mpCurrentKeyFrame,idx1);
 
-            mpCurrentKeyFrame->AddMapPoint(pMP,idx1);
-            pKF2->AddMapPoint(pMP,idx2);
+//             mpCurrentKeyFrame->AddMapPoint(pMP,idx1);
+//             pKF2->AddMapPoint(pMP,idx2);
 
-            pMP->ComputeDistinctiveDescriptors();
+//             pMP->ComputeDistinctiveDescriptors();
 
-            pMP->UpdateNormalAndDepth();
+//             pMP->UpdateNormalAndDepth();
 
-            mpMap->AddMapPoint(pMP);
-            mlpRecentAddedMapPoints.push_back(pMP);
-        }
-    }
-}
+//             mpMap->AddMapPoint(pMP);
+//             mlpRecentAddedMapPoints.push_back(pMP);
+//         }
+//     }
+// }
 
 void LocalMapping::SearchInNeighbors()
 {
@@ -468,58 +463,58 @@ cv::Mat LocalMapping::ComputeF12(KeyFrame *&pKF1, KeyFrame *&pKF2)
     return K1.t().inv()*t12x*R12*K2.inv();
 }
 
-void LocalMapping::RequestStop()
-{
-    boost::mutex::scoped_lock lock(mMutexStop);
-    mbStopRequested = true;
-    boost::mutex::scoped_lock lock2(mMutexNewKFs);
-    mbAbortBA = true;
-}
+// void LocalMapping::RequestStop()
+// {
+//     boost::mutex::scoped_lock lock(mMutexStop);
+//     mbStopRequested = true;
+//     boost::mutex::scoped_lock lock2(mMutexNewKFs);
+//     mbAbortBA = true;
+// }
 
-void LocalMapping::Stop()
-{
-    boost::mutex::scoped_lock lock(mMutexStop);
-    mbStopped = true;
-}
+// void LocalMapping::Stop()
+// {
+//     boost::mutex::scoped_lock lock(mMutexStop);
+//     mbStopped = true;
+// }
 
-bool LocalMapping::isStopped()
-{
-    boost::mutex::scoped_lock lock(mMutexStop);
-    return mbStopped;
-}
+// bool LocalMapping::isStopped()
+// {
+//     boost::mutex::scoped_lock lock(mMutexStop);
+//     return mbStopped;
+// }
 
-bool LocalMapping::stopRequested()
-{
-    boost::mutex::scoped_lock lock(mMutexStop);
-    return mbStopRequested;
-}
+// bool LocalMapping::stopRequested()
+// {
+//     boost::mutex::scoped_lock lock(mMutexStop);
+//     return mbStopRequested;
+// }
 
-void LocalMapping::Release()
-{
-    boost::mutex::scoped_lock lock(mMutexStop);
-    mbStopped = false;
-    mbStopRequested = false;
-    for(list<KeyFrame*>::iterator lit = mlNewKeyFrames.begin(), lend=mlNewKeyFrames.end(); lit!=lend; lit++)
-        delete *lit;
-    mlNewKeyFrames.clear();
-}
+// void LocalMapping::Release()
+// {
+//     boost::mutex::scoped_lock lock(mMutexStop);
+//     mbStopped = false;
+//     mbStopRequested = false;
+//     for(list<KeyFrame*>::iterator lit = mlNewKeyFrames.begin(), lend=mlNewKeyFrames.end(); lit!=lend; lit++)
+//         delete *lit;
+//     mlNewKeyFrames.clear();
+// }
 
-bool LocalMapping::AcceptKeyFrames()
-{
-    boost::mutex::scoped_lock lock(mMutexAccept);
-    return mbAcceptKeyFrames;
-}
+// bool LocalMapping::AcceptKeyFrames()
+// {
+//     //boost::mutex::scoped_lock lock(mMutexAccept);
+//     return mbAcceptKeyFrames;
+// }
 
-void LocalMapping::SetAcceptKeyFrames(bool flag)
-{
-    boost::mutex::scoped_lock lock(mMutexAccept);
-    mbAcceptKeyFrames=flag;
-}
+// void LocalMapping::SetAcceptKeyFrames(bool flag)
+// {
+//     //boost::mutex::scoped_lock lock(mMutexAccept);
+//     mbAcceptKeyFrames=flag;
+// }
 
-void LocalMapping::InterruptBA()
-{
-    mbAbortBA = true;
-}
+// void LocalMapping::InterruptBA()
+// {
+//     mbAbortBA = true;
+// }
 
 void LocalMapping::KeyFrameCulling()
 {
@@ -584,34 +579,34 @@ cv::Mat LocalMapping::SkewSymmetricMatrix(const cv::Mat &v)
                                  -v.at<float>(1),  v.at<float>(0),              0);
 }
 
-void LocalMapping::RequestReset()
-{
-    {
-        boost::mutex::scoped_lock lock(mMutexReset);
-        mbResetRequested = true;
-    }
+// void LocalMapping::RequestReset()
+// {
+//     {
+//         boost::mutex::scoped_lock lock(mMutexReset);
+//         mbResetRequested = true;
+//     }
 
-    ros::Rate r(500);
-    while(ros::ok())
-    {
-        {
-        boost::mutex::scoped_lock lock2(mMutexReset);
-        if(!mbResetRequested)
-            break;
-        }
-        r.sleep();
-    }
-}
+//     ros::Rate r(500);
+//     while(ros::ok())
+//     {
+//         {
+//         boost::mutex::scoped_lock lock2(mMutexReset);
+//         if(!mbResetRequested)
+//             break;
+//         }
+//         r.sleep();
+//     }
+// }
 
-void LocalMapping::ResetIfRequested()
-{
-    boost::mutex::scoped_lock lock(mMutexReset);
-    if(mbResetRequested)
-    {
-        mlNewKeyFrames.clear();
-        mlpRecentAddedMapPoints.clear();
-        mbResetRequested=false;
-    }
-}
+// void LocalMapping::ResetIfRequested()
+// {
+//     boost::mutex::scoped_lock lock(mMutexReset);
+//     if(mbResetRequested)
+//     {
+//         mlNewKeyFrames.clear();
+//         mlpRecentAddedMapPoints.clear();
+//         mbResetRequested=false;
+//     }
+// }
 
 } //namespace ORB_SLAM

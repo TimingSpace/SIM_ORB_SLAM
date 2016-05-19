@@ -10,6 +10,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/SIM_ORB_SLAM.dir/src/Optimizer.o"
   "CMakeFiles/SIM_ORB_SLAM.dir/src/Converter.o"
   "CMakeFiles/SIM_ORB_SLAM.dir/src/Tracking.o"
+  "CMakeFiles/SIM_ORB_SLAM.dir/src/LocalMapping.o"
   "bin/SIM_ORB_SLAM.pdb"
   "bin/SIM_ORB_SLAM"
 )

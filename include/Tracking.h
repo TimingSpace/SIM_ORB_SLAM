@@ -28,7 +28,7 @@
 
 // #include "FramePublisher.h"
 #include "Map.h"
-// #include "LocalMapping.h"
+#include "LocalMapping.h"
 // #include "LoopClosing.h"
 #include "Frame.h"
 // #include "ORBVocabulary.h"
@@ -46,7 +46,7 @@ namespace ORB_SLAM
 
 class FramePublisher;
 class Map;
-// class LocalMapping;
+class LocalMapping;
 // class LoopClosing;
 
 class Tracking
@@ -112,12 +112,12 @@ protected:
     bool TrackLocalMap();
     void SearchReferencePointsInFrustum();
 
-    // bool NeedNewKeyFrame();
-    // void CreateNewKeyFrame();
+    bool NeedNewKeyFrame();
+    void CreateNewKeyFrame();
 
 
     //Other Thread Pointers
-    // LocalMapping* mpLocalMapper;
+    LocalMapping* mpLocalMapper;
     // LoopClosing* mpLoopClosing;
 
     //ORB

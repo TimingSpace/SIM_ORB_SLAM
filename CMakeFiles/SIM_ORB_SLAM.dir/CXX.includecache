@@ -504,6 +504,12 @@ Frame.h
 boost/thread.hpp
 -
 
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/include/LocalMapping.h
+KeyFrame.h
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/include/KeyFrame.h
+Map.h
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/include/Map.h
+
 /Users/shikw/Documents/Program/Academic/VO/ORBVO/include/Map.h
 MapPoint.h
 /Users/shikw/Documents/Program/Academic/VO/ORBVO/include/MapPoint.h
@@ -565,6 +571,8 @@ opencv2/features2d/features2d.hpp
 -
 Map.h
 /Users/shikw/Documents/Program/Academic/VO/ORBVO/include/Map.h
+LocalMapping.h
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/include/LocalMapping.h
 Frame.h
 /Users/shikw/Documents/Program/Academic/VO/ORBVO/include/Frame.h
 ORBextractor.h
@@ -591,6 +599,14 @@ Initializer.h
 /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/KeyFrame.cc
 ../include/KeyFrame.h
 /Users/shikw/Documents/Program/Academic/VO/ORBVO/include/KeyFrame.h
+
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/LocalMapping.cc
+LocalMapping.h
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/LocalMapping.h
+ORBmatcher.h
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/ORBmatcher.h
+Optimizer.h
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Optimizer.h
 
 /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Map.cc
 ../include/Map.h
@@ -15662,6 +15678,18 @@ Thirdparty/g2o/g2o/types/types_six_dof_expmap.h
 ../Thirdparty/g2o/g2o/types/types_seven_dof_expmap.h
 Thirdparty/g2o/g2o/types/types_seven_dof_expmap.h
 
+include/Frame.h
+ORBextractor.h
+include/ORBextractor.h
+MapPoint.h
+include/MapPoint.h
+ORBextractor.h
+include/ORBextractor.h
+vector
+-
+opencv2/opencv.hpp
+-
+
 include/Initializer.h
 opencv2/opencv.hpp
 -
@@ -15679,6 +15707,12 @@ Frame.h
 include/Frame.h
 boost/thread.hpp
 -
+
+include/LocalMapping.h
+KeyFrame.h
+include/KeyFrame.h
+Map.h
+include/Map.h
 
 include/Map.h
 MapPoint.h
@@ -15698,6 +15732,14 @@ include/KeyFrame.h
 Map.h
 include/Map.h
 boost/thread.hpp
+-
+
+include/ORBextractor.h
+vector
+-
+list
+-
+opencv/cv.h
 -
 
 include/ORBmatcher.h
@@ -15733,6 +15775,8 @@ opencv2/features2d/features2d.hpp
 -
 Map.h
 include/Map.h
+LocalMapping.h
+include/LocalMapping.h
 Frame.h
 include/Frame.h
 ORBextractor.h

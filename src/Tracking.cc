@@ -46,6 +46,8 @@ Tracking::Tracking(Map *pMap):
 {
     // Load camera parameters from settings file
     mpORBextractor = new ORBextractor();
+    mpLocalMapper  = new LocalMapping(pMap);
+    mMinFrames = 2;
 }
 void Tracking::trackingImage(vector<string> vstrImageFilenames,Mat K,Mat DistCoef)
 {
@@ -75,7 +77,11 @@ void Tracking::trackingImage(vector<string> vstrImageFilenames,Mat K,Mat DistCoe
             {
                 TrackLocalMap();
             }
-
+            if(NeedNewKeyFrame())
+            {
+                cout<<"CreateNewKeyFrame now "<<endl;
+                CreateNewKeyFrame();
+            }
             cout<<trackSuccess<<"    "<<mCurrentFrame.mTcw<<endl;
         }
         mLastFrame = Frame(mCurrentFrame);
@@ -562,55 +568,56 @@ bool Tracking::TrackLocalMap()
 }
 
 
-// bool Tracking::NeedNewKeyFrame()
-// {
-//     // If Local Mapping is freezed by a Loop Closure do not insert keyframes
-//     // if(mpLocalMapper->isStopped() || mpLocalMapper->stopRequested())
-//     //     return false;
+bool Tracking::NeedNewKeyFrame()
+{
+    // If Local Mapping is freezed by a Loop Closure do not insert keyframes
+    // if(mpLocalMapper->isStopped() || mpLocalMapper->stopRequested())
+    //     return false;
 
-//     // Not insert keyframes if not enough frames from last relocalisation have passed
-//     if(mCurrentFrame.mnId<mnLastRelocFrameId+mMaxFrames && mpMap->KeyFramesInMap()>mMaxFrames)
-//         return false;
+    // Not insert keyframes if not enough frames from last relocalisation have passed
+    // if(mCurrentFrame.mnId<mnLastRelocFrameId+mMaxFrames && mpMap->KeyFramesInMap()>mMaxFrames)
+    //     return false;
 
-//     // Reference KeyFrame MapPoints
-//     int nRefMatches = mpReferenceKF->TrackedMapPoints();
+    // Reference KeyFrame MapPoints
+    int nRefMatches = mpReferenceKF->TrackedMapPoints();
 
-//     // Local Mapping accept keyframes?
-//     // bool bLocalMappingIdle = mpLocalMapper->AcceptKeyFrames();
+    // Local Mapping accept keyframes?
+    // bool bLocalMappingIdle = mpLocalMapper->AcceptKeyFrames();
 
-//     // Condition 1a: More than "MaxFrames" have passed from last keyframe insertion
-//     const bool c1a = mCurrentFrame.mnId>=mnLastKeyFrameId+mMaxFrames;
-//     // Condition 1b: More than "MinFrames" have passed and Local Mapping is idle
-//     const bool c1b = mCurrentFrame.mnId>=mnLastKeyFrameId+mMinFrames && bLocalMappingIdle;
-//     // Condition 2: Less than 90% of points than reference keyframe and enough inliers
-//     const bool c2 = mnMatchesInliers<nRefMatches*0.9 && mnMatchesInliers>15;
+    // Condition 1a: More than "MaxFrames" have passed from last keyframe insertion
+    const bool c1a = mCurrentFrame.mnId>=mnLastKeyFrameId+mMaxFrames;
+    // Condition 1b: More than "MinFrames" have passed and Local Mapping is idle
+    const bool c1b = mCurrentFrame.mnId>=mnLastKeyFrameId+mMinFrames;
+    // Condition 2: Less than 90% of points than reference keyframe and enough inliers
+    const bool c2 = mnMatchesInliers<nRefMatches*0.9 && mnMatchesInliers>15;
+    return c1b;
+    // if((c1a||c1b)&&c2)
+    // {
+    //     // If the mapping accepts keyframes insert, otherwise send a signal to interrupt BA, but not insert yet
+    //     if(bLocalMappingIdle)
+    //     {
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         mpLocalMapper->InterruptBA();
+    //         return false;
+    //     }
+    // }
+    // else
+    //     return false;
+}
 
-//     if((c1a||c1b)&&c2)
-//     {
-//         // If the mapping accepts keyframes insert, otherwise send a signal to interrupt BA, but not insert yet
-//         if(bLocalMappingIdle)
-//         {
-//             return true;
-//         }
-//         else
-//         {
-//             mpLocalMapper->InterruptBA();
-//             return false;
-//         }
-//     }
-//     else
-//         return false;
-// }
+void Tracking::CreateNewKeyFrame()
+{
+    KeyFrame* pKF = new KeyFrame(mCurrentFrame,mpMap);
 
-// void Tracking::CreateNewKeyFrame()
-// {
-//     KeyFrame* pKF = new KeyFrame(mCurrentFrame,mpMap,mpKeyFrameDB);
+    mpLocalMapper->InsertKeyFrame(pKF);
+    cout<<mpMap->GetAllKeyFrames().size()<<endl;
 
-//     mpLocalMapper->InsertKeyFrame(pKF);
-
-//     mnLastKeyFrameId = mCurrentFrame.mnId;
-//     mpLastKeyFrame = pKF;
-// }
+    mnLastKeyFrameId = mCurrentFrame.mnId;
+    mpLastKeyFrame = pKF;
+}
 
 void Tracking::SearchReferencePointsInFrustum()
 {

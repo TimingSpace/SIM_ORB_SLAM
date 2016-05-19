@@ -23,17 +23,17 @@
 
 #include "KeyFrame.h"
 #include "Map.h"
-#include "LoopClosing.h"
-#include "Tracking.h"
-#include <boost/thread.hpp>
-#include "KeyFrameDatabase.h"
+// #include "LoopClosing.h"
+// #include "Tracking.h"
+// #include <boost/thread.hpp>
+// #include "KeyFrameDatabase.h"
 
 
 namespace ORB_SLAM
 {
 
-class Tracking;
-class LoopClosing;
+// class Tracking;
+// class LoopClosing;
 class Map;
 
 class LocalMapping
@@ -41,36 +41,36 @@ class LocalMapping
 public:
     LocalMapping(Map* pMap);
 
-    void SetLoopCloser(LoopClosing* pLoopCloser);
+    // void SetLoopCloser(LoopClosing* pLoopCloser);
 
-    void SetTracker(Tracking* pTracker);
+    // void SetTracker(Tracking* pTracker);
 
-    void Run();
+    // void Run();
 
     void InsertKeyFrame(KeyFrame* pKF);
 
     // Thread Synch
-    void RequestStop();
-    void RequestReset();
+    // void RequestStop();
+    // void RequestReset();
 
-    void Stop();
+    // void Stop();
 
-    void Release();
+    // void Release();
 
-    bool isStopped();
+    // bool isStopped();
 
-    bool stopRequested();
+    // bool stopRequested();
 
-    bool AcceptKeyFrames();
-    void SetAcceptKeyFrames(bool flag);
+    // bool AcceptKeyFrames();
+    // void SetAcceptKeyFrames(bool flag);
 
-    void InterruptBA();
+    // void InterruptBA();
 
 protected:
 
     bool CheckNewKeyFrames();
     void ProcessNewKeyFrame();
-    void CreateNewMapPoints();
+    //void CreateNewMapPoints();
 
     void MapPointCulling();
     void SearchInNeighbors();
@@ -81,14 +81,14 @@ protected:
 
     cv::Mat SkewSymmetricMatrix(const cv::Mat &v);
 
-    void ResetIfRequested();
-    bool mbResetRequested;
-    boost::mutex mMutexReset;
+    // void ResetIfRequested();
+    // bool mbResetRequested;
+    // boost::mutex mMutexReset;
 
     Map* mpMap;
 
-    LoopClosing* mpLoopCloser;
-    Tracking* mpTracker;
+    // LoopClosing* mpLoopCloser;
+    // Tracking* mpTracker;
 
     std::list<KeyFrame*> mlNewKeyFrames;
 
@@ -96,16 +96,16 @@ protected:
 
     std::list<MapPoint*> mlpRecentAddedMapPoints;
 
-    boost::mutex mMutexNewKFs;    
+    // boost::mutex mMutexNewKFs;    
 
-    bool mbAbortBA;
+    // bool mbAbortBA;
 
-    bool mbStopped;
-    bool mbStopRequested;
-    boost::mutex mMutexStop;
+    // bool mbStopped;
+    // bool mbStopRequested;
+    // boost::mutex mMutexStop;
 
-    bool mbAcceptKeyFrames;
-    boost::mutex mMutexAccept;
+    // bool mbAcceptKeyFrames;
+    // boost::mutex mMutexAccept;
 };
 
 } //namespace ORB_SLAM
