@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Project.dir/src/Map.o"
   "CMakeFiles/Project.dir/src/MapPoint.o"
   "CMakeFiles/Project.dir/src/KeyFrame.o"
+  "CMakeFiles/Project.dir/src/Optimizer.o"
+  "CMakeFiles/Project.dir/src/Converter.o"
   "bin/Project.pdb"
   "bin/Project"
 )

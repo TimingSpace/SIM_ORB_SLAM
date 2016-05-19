@@ -6,6 +6,7 @@
 #include "../include/ORBmatcher.h"
 #include "../include/Initializer.h"
 #include "../include/Map.h"
+#include "../include/Optimizer.h"
 using namespace cv;
 using namespace ORB_SLAM;
 using namespace std;
@@ -123,21 +124,92 @@ int main(int argn, char** argv)
 		            }           
 		        }
 
-		        cout<<"Initialized successfully"<<endl;
-
-		        mTrackingState = WORKING;
+		        
                 CreateInitialMap(mInitialFrame,mCurrentFrame,mIniMatches,mIniP3D,Rcw,tcw,mpMap);
-		        //CreateInitialMap(Rcw,tcw);
+		        mLastFrame = Frame(mCurrentFrame);
+                mTrackingState = WORKING;
+             
+                cout<<"Initialized successfully"<<endl;
 		    }
             waitKey(10);
 		    continue;
     	}
+        else if(mTrackingState==WORKING)
+        {
+
+        }
         cout<<mpMap->GetAllMapPoints().size()<<endl;
     	waitKey();
     }	
 	return 0;
 }
+bool TrackPreviousFrame(Frame& mCurrentFrame, Frame &mLastFrame, Map* mpMap)
+{
+    ORBmatcher matcher(0.9,true);
+    vector<MapPoint*> vpMapPointMatches;
 
+    // Search first points at coarse scale levels to get a rough initial estimate
+    int minOctave = 0;
+    int maxOctave = mCurrentFrame.mvScaleFactors.size()-1;
+    if(mpMap->KeyFramesInMap()>5)
+        minOctave = maxOctave/2+1;
+
+    int nmatches = matcher.WindowSearch(mLastFrame,mCurrentFrame,200,vpMapPointMatches,minOctave);
+
+    // If not enough matches, search again without scale constraint
+    if(nmatches<10)
+    {
+        nmatches = matcher.WindowSearch(mLastFrame,mCurrentFrame,100,vpMapPointMatches,0);
+        if(nmatches<10)
+        {
+            vpMapPointMatches=vector<MapPoint*>(mCurrentFrame.mvpMapPoints.size(),static_cast<MapPoint*>(NULL));
+            nmatches=0;
+        }
+    }
+
+    mLastFrame.mTcw.copyTo(mCurrentFrame.mTcw);
+    mCurrentFrame.mvpMapPoints=vpMapPointMatches;
+
+    // If enough correspondeces, optimize pose and project points from previous frame to search more correspondences
+    if(nmatches>=10)
+    {
+        // Optimize pose with correspondences
+        Optimizer::PoseOptimization(&mCurrentFrame);
+
+        for(size_t i =0; i<mCurrentFrame.mvbOutlier.size(); i++)
+            if(mCurrentFrame.mvbOutlier[i])
+            {
+                mCurrentFrame.mvpMapPoints[i]=NULL;
+                mCurrentFrame.mvbOutlier[i]=false;
+                nmatches--;
+            }
+
+        // Search by projection with the estimated pose
+        nmatches += matcher.SearchByProjection(mLastFrame,mCurrentFrame,15,vpMapPointMatches);
+    }
+    else //Last opportunity
+        nmatches = matcher.SearchByProjection(mLastFrame,mCurrentFrame,50,vpMapPointMatches);
+
+
+    mCurrentFrame.mvpMapPoints=vpMapPointMatches;
+
+    if(nmatches<10)
+        return false;
+
+    // Optimize pose again with all correspondences
+    Optimizer::PoseOptimization(&mCurrentFrame);
+
+    // Discard outliers
+    for(size_t i =0; i<mCurrentFrame.mvbOutlier.size(); i++)
+        if(mCurrentFrame.mvbOutlier[i])
+        {
+            mCurrentFrame.mvpMapPoints[i]=NULL;
+            mCurrentFrame.mvbOutlier[i]=false;
+            nmatches--;
+        }
+
+    return nmatches>=10;
+}
 void CreateInitialMap(Frame &mInitialFrame, Frame &mCurrentFrame,vector<int> &mvIniMatches, std::vector<cv::Point3f> &mvIniP3D,Mat &Rcw,Mat &tcw,Map* mpMap)
 {
     // Set Frame Poses
@@ -187,44 +259,44 @@ void CreateInitialMap(Frame &mInitialFrame, Frame &mCurrentFrame,vector<int> &mv
     //cout<<"44444444444"<<endl;
 
     // // Update Connections
-    // pKFini->UpdateConnections();
-    // pKFcur->UpdateConnections();
+    pKFini->UpdateConnections();
+    pKFcur->UpdateConnections();
 
     // // Bundle Adjustment
 
     // Optimizer::GlobalBundleAdjustemnt(mpMap,20);
 
     // // Set median depth to 1
-    // float medianDepth = pKFini->ComputeSceneMedianDepth(2);
-    // float invMedianDepth = 1.0f/medianDepth;
+    float medianDepth = pKFini->ComputeSceneMedianDepth(2);
+    float invMedianDepth = 1.0f/medianDepth;
 
     // if(medianDepth<0 || pKFcur->TrackedMapPoints()<100)
     // {
-    //     ROS_INFO("Wrong initialization, reseting...");
+    //     //ROS_INFO("Wrong initialization, reseting...");
     //     Reset();
     //     return;
     // }
 
     // // Scale initial baseline
-    // cv::Mat Tc2w = pKFcur->GetPose();
-    // Tc2w.col(3).rowRange(0,3) = Tc2w.col(3).rowRange(0,3)*invMedianDepth;
-    // pKFcur->SetPose(Tc2w);
+    cv::Mat Tc2w = pKFcur->GetPose();
+    Tc2w.col(3).rowRange(0,3) = Tc2w.col(3).rowRange(0,3)*invMedianDepth;
+    pKFcur->SetPose(Tc2w);
 
     // // Scale points
-    // vector<MapPoint*> vpAllMapPoints = pKFini->GetMapPointMatches();
-    // for(size_t iMP=0; iMP<vpAllMapPoints.size(); iMP++)
-    // {
-    //     if(vpAllMapPoints[iMP])
-    //     {
-    //         MapPoint* pMP = vpAllMapPoints[iMP];
-    //         pMP->SetWorldPos(pMP->GetWorldPos()*invMedianDepth);
-    //     }
-    // }
+    vector<MapPoint*> vpAllMapPoints = pKFini->GetMapPointMatches();
+    for(size_t iMP=0; iMP<vpAllMapPoints.size(); iMP++)
+    {
+        if(vpAllMapPoints[iMP])
+        {
+            MapPoint* pMP = vpAllMapPoints[iMP];
+            pMP->SetWorldPos(pMP->GetWorldPos()*invMedianDepth);
+        }
+    }
 
     // mpLocalMapper->InsertKeyFrame(pKFini);
     // mpLocalMapper->InsertKeyFrame(pKFcur);
 
-    // mCurrentFrame.mTcw = pKFcur->GetPose().clone();
+    mCurrentFrame.mTcw = pKFcur->GetPose().clone();
     // mLastFrame = Frame(mCurrentFrame);
     // mnLastKeyFrameId=mCurrentFrame.mnId;
     // mpLastKeyFrame = pKFcur;
@@ -240,6 +312,8 @@ void CreateInitialMap(Frame &mInitialFrame, Frame &mCurrentFrame,vector<int> &mv
 
     // mState=WORKING;
 }
+
+
 
 // Load Image Path and names It is a function from ORB SLAM
 void LoadImages(const string &strPathToSequence, vector<string> &vstrImageFilenames, vector<double> &vTimestamps)

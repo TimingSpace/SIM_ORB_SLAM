@@ -233,6 +233,52 @@ CMakeFiles/Project.dir/src/KeyFrame.o.provides: CMakeFiles/Project.dir/src/KeyFr
 
 CMakeFiles/Project.dir/src/KeyFrame.o.provides.build: CMakeFiles/Project.dir/src/KeyFrame.o
 
+CMakeFiles/Project.dir/src/Optimizer.o: CMakeFiles/Project.dir/flags.make
+CMakeFiles/Project.dir/src/Optimizer.o: src/Optimizer.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Project.dir/src/Optimizer.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Project.dir/src/Optimizer.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Optimizer.cc
+
+CMakeFiles/Project.dir/src/Optimizer.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Project.dir/src/Optimizer.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Optimizer.cc > CMakeFiles/Project.dir/src/Optimizer.i
+
+CMakeFiles/Project.dir/src/Optimizer.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project.dir/src/Optimizer.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Optimizer.cc -o CMakeFiles/Project.dir/src/Optimizer.s
+
+CMakeFiles/Project.dir/src/Optimizer.o.requires:
+.PHONY : CMakeFiles/Project.dir/src/Optimizer.o.requires
+
+CMakeFiles/Project.dir/src/Optimizer.o.provides: CMakeFiles/Project.dir/src/Optimizer.o.requires
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/Optimizer.o.provides.build
+.PHONY : CMakeFiles/Project.dir/src/Optimizer.o.provides
+
+CMakeFiles/Project.dir/src/Optimizer.o.provides.build: CMakeFiles/Project.dir/src/Optimizer.o
+
+CMakeFiles/Project.dir/src/Converter.o: CMakeFiles/Project.dir/flags.make
+CMakeFiles/Project.dir/src/Converter.o: src/Converter.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Project.dir/src/Converter.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Project.dir/src/Converter.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Converter.cc
+
+CMakeFiles/Project.dir/src/Converter.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Project.dir/src/Converter.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Converter.cc > CMakeFiles/Project.dir/src/Converter.i
+
+CMakeFiles/Project.dir/src/Converter.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Project.dir/src/Converter.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/shikw/Documents/Program/Academic/VO/ORBVO/src/Converter.cc -o CMakeFiles/Project.dir/src/Converter.s
+
+CMakeFiles/Project.dir/src/Converter.o.requires:
+.PHONY : CMakeFiles/Project.dir/src/Converter.o.requires
+
+CMakeFiles/Project.dir/src/Converter.o.provides: CMakeFiles/Project.dir/src/Converter.o.requires
+	$(MAKE) -f CMakeFiles/Project.dir/build.make CMakeFiles/Project.dir/src/Converter.o.provides.build
+.PHONY : CMakeFiles/Project.dir/src/Converter.o.provides
+
+CMakeFiles/Project.dir/src/Converter.o.provides.build: CMakeFiles/Project.dir/src/Converter.o
+
 # Object files for target Project
 Project_OBJECTS = \
 "CMakeFiles/Project.dir/src/ORBVO.o" \
@@ -242,7 +288,9 @@ Project_OBJECTS = \
 "CMakeFiles/Project.dir/src/Initializer.o" \
 "CMakeFiles/Project.dir/src/Map.o" \
 "CMakeFiles/Project.dir/src/MapPoint.o" \
-"CMakeFiles/Project.dir/src/KeyFrame.o"
+"CMakeFiles/Project.dir/src/KeyFrame.o" \
+"CMakeFiles/Project.dir/src/Optimizer.o" \
+"CMakeFiles/Project.dir/src/Converter.o"
 
 # External object files for target Project
 Project_EXTERNAL_OBJECTS =
@@ -255,6 +303,8 @@ bin/Project: CMakeFiles/Project.dir/src/Initializer.o
 bin/Project: CMakeFiles/Project.dir/src/Map.o
 bin/Project: CMakeFiles/Project.dir/src/MapPoint.o
 bin/Project: CMakeFiles/Project.dir/src/KeyFrame.o
+bin/Project: CMakeFiles/Project.dir/src/Optimizer.o
+bin/Project: CMakeFiles/Project.dir/src/Converter.o
 bin/Project: CMakeFiles/Project.dir/build.make
 bin/Project: /usr/local/lib/libopencv_videostab.2.4.11.dylib
 bin/Project: /usr/local/lib/libopencv_ts.a
@@ -291,6 +341,8 @@ CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/Initializer.o.requir
 CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/Map.o.requires
 CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/MapPoint.o.requires
 CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/KeyFrame.o.requires
+CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/Optimizer.o.requires
+CMakeFiles/Project.dir/requires: CMakeFiles/Project.dir/src/Converter.o.requires
 .PHONY : CMakeFiles/Project.dir/requires
 
 CMakeFiles/Project.dir/clean:

@@ -1,0 +1,506 @@
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec1370336857/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec1370336857.dir/build.make CMakeFiles/cmTryCompileExec1370336857.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1370336857.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED   -o CMakeFiles/cmTryCompileExec1370336857.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c:2:10: fatal error: 'omp.h' file not found
+#include <omp.h>
+         ^
+1 error generated.
+CMakeFiles/cmTryCompileExec1370336857.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec1370336857.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec1370336857.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec1370336857/fast' failed
+gmake: *** [cmTryCompileExec1370336857/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec698761307/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec698761307.dir/build.make CMakeFiles/cmTryCompileExec698761307.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec698761307.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTryCompileExec698761307.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c:2:10: fatal error: 'omp.h' file not found
+#include <omp.h>
+         ^
+1 error generated.
+CMakeFiles/cmTryCompileExec698761307.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec698761307.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec698761307.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec698761307/fast' failed
+gmake: *** [cmTryCompileExec698761307/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec4168256958/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec4168256958.dir/build.make CMakeFiles/cmTryCompileExec4168256958.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4168256958.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED /openmp   -o CMakeFiles/cmTryCompileExec4168256958.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+clang: error: no such file or directory: '/openmp'
+CMakeFiles/cmTryCompileExec4168256958.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec4168256958.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec4168256958.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec4168256958/fast' failed
+gmake: *** [cmTryCompileExec4168256958/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec767799391/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec767799391.dir/build.make CMakeFiles/cmTryCompileExec767799391.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec767799391.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -Qopenmp   -o CMakeFiles/cmTryCompileExec767799391.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+clang: error: unknown argument: '-Qopenmp'
+CMakeFiles/cmTryCompileExec767799391.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec767799391.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec767799391.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec767799391/fast' failed
+gmake: *** [cmTryCompileExec767799391/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec3797118788/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec3797118788.dir/build.make CMakeFiles/cmTryCompileExec3797118788.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3797118788.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -openmp   -o CMakeFiles/cmTryCompileExec3797118788.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c:2:10: fatal error: 'omp.h' file not found
+#include <omp.h>
+         ^
+1 error generated.
+CMakeFiles/cmTryCompileExec3797118788.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec3797118788.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3797118788.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec3797118788/fast' failed
+gmake: *** [cmTryCompileExec3797118788/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec585116375/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec585116375.dir/build.make CMakeFiles/cmTryCompileExec585116375.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec585116375.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -xopenmp   -o CMakeFiles/cmTryCompileExec585116375.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+clang: error: language not recognized: 'openmp'
+clang: warning: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c: 'linker' input unused
+CMakeFiles/cmTryCompileExec585116375.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec585116375.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec585116375.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec585116375/fast' failed
+gmake: *** [cmTryCompileExec585116375/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec1282261101/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec1282261101.dir/build.make CMakeFiles/cmTryCompileExec1282261101.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1282261101.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED +Oopenmp   -o CMakeFiles/cmTryCompileExec1282261101.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+clang: error: no such file or directory: '+Oopenmp'
+CMakeFiles/cmTryCompileExec1282261101.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec1282261101.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec1282261101.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec1282261101/fast' failed
+gmake: *** [cmTryCompileExec1282261101/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec490679125/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec490679125.dir/build.make CMakeFiles/cmTryCompileExec490679125.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec490679125.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -qsmp   -o CMakeFiles/cmTryCompileExec490679125.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+clang: error: unknown argument: '-qsmp'
+CMakeFiles/cmTryCompileExec490679125.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec490679125.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec490679125.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec490679125/fast' failed
+gmake: *** [cmTryCompileExec490679125/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec373843582/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec373843582.dir/build.make CMakeFiles/cmTryCompileExec373843582.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec373843582.dir/src.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -mp   -o CMakeFiles/cmTryCompileExec373843582.dir/src.c.o   -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.c
+clang: error: unknown argument: '-mp'
+CMakeFiles/cmTryCompileExec373843582.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec373843582.dir/src.c.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec373843582.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec373843582/fast' failed
+gmake: *** [cmTryCompileExec373843582/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec487959866/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec487959866.dir/build.make CMakeFiles/cmTryCompileExec487959866.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec487959866.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED   -o CMakeFiles/cmTryCompileExec487959866.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx:2:10: fatal error: 'omp.h' file not found
+#include <omp.h>
+         ^
+1 error generated.
+CMakeFiles/cmTryCompileExec487959866.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec487959866.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec487959866.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec487959866/fast' failed
+gmake: *** [cmTryCompileExec487959866/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec3275082535/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec3275082535.dir/build.make CMakeFiles/cmTryCompileExec3275082535.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3275082535.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTryCompileExec3275082535.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx:2:10: fatal error: 'omp.h' file not found
+#include <omp.h>
+         ^
+1 error generated.
+CMakeFiles/cmTryCompileExec3275082535.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec3275082535.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3275082535.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec3275082535/fast' failed
+gmake: *** [cmTryCompileExec3275082535/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec4236120909/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec4236120909.dir/build.make CMakeFiles/cmTryCompileExec4236120909.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec4236120909.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED /openmp   -o CMakeFiles/cmTryCompileExec4236120909.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+clang: error: no such file or directory: '/openmp'
+CMakeFiles/cmTryCompileExec4236120909.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec4236120909.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec4236120909.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec4236120909/fast' failed
+gmake: *** [cmTryCompileExec4236120909/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec765316101/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec765316101.dir/build.make CMakeFiles/cmTryCompileExec765316101.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec765316101.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -Qopenmp   -o CMakeFiles/cmTryCompileExec765316101.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+clang: error: unknown argument: '-Qopenmp'
+CMakeFiles/cmTryCompileExec765316101.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec765316101.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec765316101.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec765316101/fast' failed
+gmake: *** [cmTryCompileExec765316101/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec2620520757/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec2620520757.dir/build.make CMakeFiles/cmTryCompileExec2620520757.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2620520757.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -openmp   -o CMakeFiles/cmTryCompileExec2620520757.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx:2:10: fatal error: 'omp.h' file not found
+#include <omp.h>
+         ^
+1 error generated.
+CMakeFiles/cmTryCompileExec2620520757.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec2620520757.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2620520757.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec2620520757/fast' failed
+gmake: *** [cmTryCompileExec2620520757/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec497455056/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec497455056.dir/build.make CMakeFiles/cmTryCompileExec497455056.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec497455056.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -xopenmp   -o CMakeFiles/cmTryCompileExec497455056.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+clang: error: language not recognized: 'openmp'
+clang: warning: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx: 'linker' input unused
+CMakeFiles/cmTryCompileExec497455056.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec497455056.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec497455056.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec497455056/fast' failed
+gmake: *** [cmTryCompileExec497455056/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec483651504/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec483651504.dir/build.make CMakeFiles/cmTryCompileExec483651504.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec483651504.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED +Oopenmp   -o CMakeFiles/cmTryCompileExec483651504.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+clang: error: no such file or directory: '+Oopenmp'
+CMakeFiles/cmTryCompileExec483651504.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec483651504.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec483651504.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec483651504/fast' failed
+gmake: *** [cmTryCompileExec483651504/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec2099597790/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec2099597790.dir/build.make CMakeFiles/cmTryCompileExec2099597790.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2099597790.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -qsmp   -o CMakeFiles/cmTryCompileExec2099597790.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+clang: error: unknown argument: '-qsmp'
+CMakeFiles/cmTryCompileExec2099597790.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec2099597790.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2099597790.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec2099597790/fast' failed
+gmake: *** [cmTryCompileExec2099597790/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED failed with the following output:
+Change Dir: /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp
+
+Run Build Command:"/opt/local/bin/gmake" "cmTryCompileExec485512140/fast"
+/opt/local/bin/gmake -f CMakeFiles/cmTryCompileExec485512140.dir/build.make CMakeFiles/cmTryCompileExec485512140.dir/build
+gmake[1]: Entering directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+/usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_progress_report /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec485512140.dir/src.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   -DLAPACK_USE_F2C -DOpenMP_FLAG_DETECTED -mp   -o CMakeFiles/cmTryCompileExec485512140.dir/src.cxx.o -c /Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp/src.cxx
+clang: error: unknown argument: '-mp'
+CMakeFiles/cmTryCompileExec485512140.dir/build.make:57: recipe for target 'CMakeFiles/cmTryCompileExec485512140.dir/src.cxx.o' failed
+gmake[1]: *** [CMakeFiles/cmTryCompileExec485512140.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/Users/shikw/Documents/Program/Academic/VO/ORBVO/Thirdparty/g2o/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec485512140/fast' failed
+gmake: *** [cmTryCompileExec485512140/fast] Error 2
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+

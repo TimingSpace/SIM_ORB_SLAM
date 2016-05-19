@@ -132,7 +132,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 CMAKE_OSX_SYSROOT:STRING=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Project
+CMAKE_PROJECT_NAME:STATIC=SIM_ORB_SLAM
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
@@ -217,6 +217,12 @@ Project_BINARY_DIR:STATIC=/Users/shikw/Documents/Program/Academic/VO/ORBVO
 
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=/Users/shikw/Documents/Program/Academic/VO/ORBVO
+
+//Value Computed by CMake
+SIM_ORB_SLAM_BINARY_DIR:STATIC=/Users/shikw/Documents/Program/Academic/VO/ORBVO
+
+//Value Computed by CMake
+SIM_ORB_SLAM_SOURCE_DIR:STATIC=/Users/shikw/Documents/Program/Academic/VO/ORBVO
 
 
 ########################

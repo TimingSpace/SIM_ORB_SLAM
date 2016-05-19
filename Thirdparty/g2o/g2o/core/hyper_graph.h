@@ -26,7 +26,7 @@
 
 #ifndef G2O_AIS_HYPER_GRAPH_HH
 #define G2O_AIS_HYPER_GRAPH_HH
-
+// #define _MSC_VER
 #include <map>
 #include <set>
 #include <bitset>
@@ -35,12 +35,12 @@
 #include <limits>
 #include <cstddef>
 
-#ifdef _MSC_VER
+// #ifdef _MSC_VER
+// #include <unordered_map>
+// #else
+// #include <tr1/unordered_map>
+// #endif
 #include <unordered_map>
-#else
-#include <tr1/unordered_map>
-#endif
-
 
 /** @addtogroup graph */
 //@{
@@ -90,7 +90,8 @@ namespace g2o {
       typedef std::set<Edge*>                           EdgeSet;
       typedef std::set<Vertex*>                         VertexSet;
 
-      typedef std::tr1::unordered_map<int, Vertex*>     VertexIDMap;
+      // typedef std::tr1::unordered_map<int, Vertex*>     VertexIDMap;
+      typedef std::unordered_map<int, Vertex*>     VertexIDMap;
       typedef std::vector<Vertex*>                      VertexContainer;
 
       //! abstract Vertex, your types must derive from that one
